@@ -34,7 +34,7 @@ public class ItemText : MonoBehaviour
             SetItemValue();
             
             //アイテム取得エフェクト
-            // GlobalVolume.instance.ShowItemObtainedEffect();
+            GlobalVolume.instance.ShowItemObtainedEffect();
             
             // クリアエフェクト
             // GlobalVolume.instance.ShowIllumination();

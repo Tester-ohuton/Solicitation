@@ -17,6 +17,11 @@ public class PlayerCameraBob : MonoBehaviour
 
     void Update()
     {
+        PlayerLife.OnGameOver.AddListener(() =>
+        {
+            return;
+        });
+
         if (!SceneFlagManager.Instance.isPlayerMoving)
             return;
 

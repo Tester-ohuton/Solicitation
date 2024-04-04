@@ -42,7 +42,12 @@ public class GlobalVolume : MonoBehaviour
 
     public void ShowIllumination()
     {
-        DOTween.To(() => splitToning.balance.value, x => splitToning.balance.value = x, 100f, 1f);
+        DOTween.To(() => splitToning.balance.value, x => splitToning.balance.value = x, -100f, 1f)
+            .OnComplete(() =>
+            {
+                // 1•bŒã‚ÉVignette‚ÌIntensity‚ð0f‚ÉTween
+                DOTween.To(() => splitToning.balance.value, x => splitToning.balance.value = x, 0f, 1f);
+            });
 
         SetColor(Color.white);
     }

@@ -22,8 +22,11 @@ public class PlayerMovement : MonoBehaviour
     float inputHorizontal;
     float inputVertical;
 
+    PlayerLife playerLife;
+
     void Start()
     {
+        playerLife = GetComponent<PlayerLife>();
         rb = GetComponent<Rigidbody>();
         Time.timeScale = 1;
     }
@@ -31,7 +34,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (!SceneFlagManager.Instance.isPlayerMoving)
+        if (!SceneFlagManager.Instance.isPlayerMoving || playerLife.isGameOver)
             return;
 
         inputHorizontal = Input.GetAxisRaw("Horizontal");

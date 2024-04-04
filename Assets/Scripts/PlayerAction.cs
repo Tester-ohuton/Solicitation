@@ -15,8 +15,12 @@ public class PlayerAction : MonoBehaviour
     private float interactionProgress = 0f; // インタラクトの進捗度
     private int i = 0;
 
+    PlayerLife playerLife;
+
     private void Start()
     {
+        playerLife = GetComponent<PlayerLife>();
+
         // 初期状態ではゲージパネルを非表示にする
         foreach (var panel in sliderPanel)
         {
@@ -26,7 +30,7 @@ public class PlayerAction : MonoBehaviour
 
     void Update()
     {
-        if (!SceneFlagManager.Instance.isPlayerMoving)
+        if (!SceneFlagManager.Instance.isPlayerMoving || playerLife.isGameOver)
             return;
 
         // レイを飛ばしてインタラクト可能なオブジェクトを検出
