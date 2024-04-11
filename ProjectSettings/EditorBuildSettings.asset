@@ -8,4 +8,8 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/SolicitationScene.unity
     guid: 99c9720ab356a0642a771bea13969a05
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.addressableassets: {fileID: 11400000, guid: 346114df9d39bd24fadb054a20c78caf,
+      type: 2}
+    com.unity.localization.settings: {fileID: 11400000, guid: 2dcecae6d969c1145a2d1d3f8f42b680,
+      type: 2}

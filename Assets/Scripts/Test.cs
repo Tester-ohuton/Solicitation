@@ -1,11 +1,9 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Test : MonoBehaviour
 {
-	// SerializeField‚Æ•À‚×‚ÄŽg‚¦‚é
-	[SerializeField]
-	[TextArea]
-	string textArea;
+    [TextArea]
+    public string text;
 }

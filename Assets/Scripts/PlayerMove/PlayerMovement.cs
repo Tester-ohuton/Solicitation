@@ -2,116 +2,139 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    // 速さ
-    public float moveSpeed = 3f;
-    // 回転量
-    public float sensityvity;
-    // カメラオブジェクトを格納する変数
-    public Camera mainCamera;
-    // カメラの回転速度を格納する変数
-    public Vector2 rotationSpeed;
-    // マウス移動方向とカメラ回転方向を反転する判定フラグ
-    public bool reverse;
-
-    // マウス座標を格納する変数
-    private Vector2 lastMousePosition;
-    // カメラの角度を格納する変数（初期値に0,0を代入）
-    private Vector2 newAngle = new Vector2(0, 0);
+    [SerializeField] Transform viewPoint;
+    [SerializeField] float mouseSensitivity = 1f;
+    [SerializeField] Vector3 jumpForce = new Vector3(0, 6, 0);
+    [SerializeField] Transform groundCheckPoint;
+    [SerializeField] LayerMask groundLayer;
+    [SerializeField] float walkSpeed = 4f;
+    [SerializeField] float runSpeed = 8f;
 
     private Rigidbody rb;
-    float inputHorizontal;
-    float inputVertical;
+    private Vector2 mouseInput;
+    private float verticalMouseInput;
+    private Camera cam;
 
-    PlayerLife playerLife;
+    private Vector3 moveDir;
+    private Vector3 movement;
+    private float activeMoveSpeed;
+    private bool cursorLock = true;
 
     void Start()
     {
-        playerLife = GetComponent<PlayerLife>();
         rb = GetComponent<Rigidbody>();
         Time.timeScale = 1;
-    }
+        cam = Camera.main;
 
-
-    void Update()
-    {
-        if (!SceneFlagManager.Instance.isPlayerMoving || playerLife.isGameOver)
+        if (!SceneFlagManager.Instance.isPlayerMoving)
             return;
 
-        inputHorizontal = Input.GetAxisRaw("Horizontal");
-        inputVertical = Input.GetAxisRaw("Vertical");
-
-        // 左クリックした時
-        if (Input.GetMouseButtonDown(0))
-        {
-            // カメラの角度を変数"newAngle"に格納
-            newAngle = mainCamera.transform.localEulerAngles;
-            // マウス座標を変数"lastMousePosition"に格納
-            lastMousePosition = Input.mousePosition;
-        }
-        // 左ドラッグしている間
-        else if (Input.GetMouseButton(0))
-        {
-            //カメラ回転方向の判定フラグが"true"の場合
-            if (!reverse)
-            {
-                // Y軸の回転：マウスドラッグ方向に視点回転
-                // マウスの水平移動値に変数"rotationSpeed"を掛ける
-                //（クリック時の座標とマウス座標の現在値の差分値）
-                newAngle.y -= (lastMousePosition.x - Input.mousePosition.x) * rotationSpeed.y;
-                // X軸の回転：マウスドラッグ方向に視点回転
-                // マウスの垂直移動値に変数"rotationSpeed"を掛ける
-                //（クリック時の座標とマウス座標の現在値の差分値）
-                newAngle.x -= (Input.mousePosition.y - lastMousePosition.y) * rotationSpeed.x;
-                // "newAngle"の角度をカメラ角度に格納
-                mainCamera.transform.localEulerAngles = newAngle;
-                // マウス座標を変数"lastMousePosition"に格納
-                lastMousePosition = Input.mousePosition;
-            }
-            // カメラ回転方向の判定フラグが"reverse"の場合
-            else if (reverse)
-            {
-                // Y軸の回転：マウスドラッグと逆方向に視点回転
-                newAngle.y -= (Input.mousePosition.x - lastMousePosition.x) * rotationSpeed.y;
-                // X軸の回転：マウスドラッグと逆方向に視点回転
-                newAngle.x -= (lastMousePosition.y - Input.mousePosition.y) * rotationSpeed.x;
-                // "newAngle"の角度をカメラ角度に格納
-                mainCamera.transform.localEulerAngles = newAngle;
-                // マウス座標を変数"lastMousePosition"に格納
-                lastMousePosition = Input.mousePosition;
-            }
-        }
+        UpdateCursorLock();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         if (!SceneFlagManager.Instance.isPlayerMoving)
             return;
 
-        // 移動
-        // カメラの方向から、X-Z平面の単位ベクトルを取得
-        Vector3 cameraForward = Vector3.Scale(Camera.main.transform.forward, new Vector3(1, 0, 1)).normalized;
+        PlayerRotate();
 
-        // 方向キーの入力値とカメラの向きから、移動方向を決定
-        Vector3 moveForward = cameraForward * inputVertical + Camera.main.transform.right * inputHorizontal;
+        PlayerMove();
 
-        // 移動方向にスピードを掛ける。ジャンプや落下がある場合は、別途Y軸方向の速度ベクトルを足す。
-        rb.velocity = moveForward * moveSpeed + new Vector3(0, rb.velocity.y, 0);
+        Run();
+
+        Jump();
+
+        UpdateCursorLock();
     }
 
-    // マウスドラッグ方向と視点回転方向を反転する処理
-    public void DirectionChange()
+    public void PlayerRotate()
     {
-        // 判定フラグ変数"reverse"が"false"であれば
-        if (!reverse)
+        mouseInput = new Vector2(
+            Input.GetAxisRaw("Mouse X") * mouseSensitivity,
+            Input.GetAxisRaw("Mouse Y") * mouseSensitivity);
+
+        transform.rotation = Quaternion.Euler(
+            transform.eulerAngles.x,
+            transform.eulerAngles.y + mouseInput.x,
+            transform.eulerAngles.z);
+
+        verticalMouseInput += mouseInput.y;
+        verticalMouseInput = Mathf.Clamp(verticalMouseInput, -60f, 60f);
+
+        viewPoint.rotation = Quaternion.Euler(
+            -verticalMouseInput,
+            viewPoint.transform.rotation.eulerAngles.y,
+            viewPoint.transform.rotation.eulerAngles.z);
+    }
+
+    private void LateUpdate()
+    {
+        cam.transform.position = viewPoint.position;
+        cam.transform.rotation = viewPoint.rotation;
+    }
+
+    public void PlayerMove()
+    {
+        moveDir = new Vector3(
+            Input.GetAxisRaw("Horizontal"),
+            0,
+            Input.GetAxisRaw("Vertical"));
+
+        movement =
+            ((transform.forward * moveDir.z) +
+            (transform.right * moveDir.x)).normalized;
+
+        transform.position += movement * activeMoveSpeed * Time.deltaTime;
+    }
+
+    public void Jump()
+    {
+        if (IsGround() && Input.GetKeyDown(KeyCode.Space))
         {
-            // 判定フラグ変数"reverse"に"true"を代入
-            reverse = true;
+            rb.AddForce(jumpForce, ForceMode.Impulse);
         }
-        // でなければ（判定フラグ変数"reverse"が"true"であれば）
+    }
+
+    public bool IsGround()
+    {
+        return Physics.Raycast(
+            groundCheckPoint.position,
+            Vector3.down,
+            0.25f,
+            groundLayer);
+    }
+
+    public void Run()
+    {
+        if (Input.GetKey(KeyCode.LeftShift))
+        {
+            activeMoveSpeed = runSpeed;
+        }
         else
         {
-            // 判定フラグ変数"reverse"に"false"を代入
-            reverse = false;
+            activeMoveSpeed = walkSpeed;
+        }
+    }
+
+    public void UpdateCursorLock()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            cursorLock = false;
+        }
+        else if (Input.GetMouseButton(0))
+        {
+            cursorLock = true;
+        }
+
+        if (cursorLock)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
         }
     }
 }

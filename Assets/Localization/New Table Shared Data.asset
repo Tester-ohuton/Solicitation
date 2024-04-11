@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
+  m_Name: New Table Shared Data
+  m_EditorClassIdentifier: 
+  m_TableCollectionName: New Table
+  m_TableCollectionNameGuidString: 3233fab457c55184aad5e71fd5963b37
+  m_Entries:
+  - m_Id: 215352747589632
+    m_Key: SolicitationScene/Canvas/Setumei/Setumei
+    m_Metadata:
+      m_Items: []
+  - m_Id: 217453640908800
+    m_Key: SolicitationScene/Canvas/Titles/TitleButtons/Image/Button_1/Image
+    m_Metadata:
+      m_Items: []
+  - m_Id: 217508967972864
+    m_Key: SolicitationScene/Canvas/Titles/TitleButtons/Image/Button_1/Image 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 217629621321728
+    m_Key: SolicitationScene/Canvas/Titles/TitleButtons/Image/Button_2/Image
+    m_Metadata:
+      m_Items: []
+  - m_Id: 217701176147968
+    m_Key: SolicitationScene/Canvas/Titles/TitleButtons/Image/Button_2/Image 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 217783766188032
+    m_Key: SolicitationScene/Canvas/Titles/TitleButtons/Image/Button_3/Image
+    m_Metadata:
+      m_Items: []
+  - m_Id: 217832604663808
+    m_Key: SolicitationScene/Canvas/Titles/TitleButtons/Image/Button_3/Image 1
+    m_Metadata:
+      m_Items: []
+  - m_Id: 217892650319872
+    m_Key: SolicitationScene/Canvas/Titles/TitleButtons/Image/Button_4/Image
+    m_Metadata:
+      m_Items: []
+  - m_Id: 217946735869952
+    m_Key: SolicitationScene/Canvas/Titles/TitleButtons/Image/Button_4/Image 1
+    m_Metadata:
+      m_Items: []
+  m_Metadata:
+    m_Items:
+    - rid: 4615809333506080773
+  m_KeyGenerator:
+    rid: 4615809320528379932
+  references:
+    version: 2
+    RefIds:
+    - rid: 4615809320528379932
+      type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables,
+        asm: Unity.Localization}
+      data:
+        m_CustomEpoch: 1712352731259
+    - rid: 4615809333506080773
+      type: {class: AssetTypeMetadata, ns: UnityEngine.Localization.Metadata, asm: Unity.Localization}
+      data:
+        m_Entries:
+        - m_KeyId: 215352747589632
+          m_TableCodes:
+          - ja
+          - en
+        - m_KeyId: 217453640908800
+          m_TableCodes:
+          - ja
+        - m_KeyId: 217508967972864
+          m_TableCodes:
+          - ja
+          - en
+        - m_KeyId: 217629621321728
+          m_TableCodes:
+          - ja
+        - m_KeyId: 217701176147968
+          m_TableCodes:
+          - ja
+          - en
+        - m_KeyId: 217783766188032
+          m_TableCodes:
+          - ja
+        - m_KeyId: 217832604663808
+          m_TableCodes:
+          - ja
+          - en
+        - m_KeyId: 217892650319872
+          m_TableCodes:
+          - ja
+        - m_KeyId: 217946735869952
+          m_TableCodes:
+          - ja
+          - en
+        m_TypeString: UnityEngine.Sprite, UnityEngine.CoreModule, Version=0.0.0.0,
+          Culture=neutral, PublicKeyToken=null

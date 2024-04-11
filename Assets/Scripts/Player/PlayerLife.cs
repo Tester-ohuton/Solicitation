@@ -3,7 +3,7 @@ using UnityEngine.Events;
 
 public class PlayerLife : MonoBehaviour
 {
-    public int playerLife = 100;
+    public int playerLife;
     public bool isGameOver;
     public BGMSoundData.BGM warning;
 

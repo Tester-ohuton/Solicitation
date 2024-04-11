@@ -34,37 +34,5 @@ public class SceneFlagManager : MonoBehaviour
     [Header("SceneFlagManagerのゲーム内機能を有効にするかしないか")]
     public bool isActive;
 
-    [Header("Lists")]
-    public List<Sun> sunLists = new List<Sun>();
 
-}
-
-[System.Serializable]
-public class Sun
-{
-    public enum SUN
-    {
-        AGE_1,
-        AGE_2,
-        AGE_3,
-        AGE_4,
-        AGE_5,
-    }
-
-    [Header("Tag")]
-    public SUN sun;
-
-    [Header("何日目か")]
-    public bool isAGE; // 日ごとのisAGE情報
-
-    // 各日に異なる部屋に変化を起こすフラグのリスト
-    [Header("部屋に変化を起こすフラグ")]
-    public List<RoomFlag> roomFlags = new List<RoomFlag>();
-}
-
-[System.Serializable]
-public class RoomFlag
-{
-    [Header("部屋の異変を起こすフラグ")]
-    public bool isActive;
 }
