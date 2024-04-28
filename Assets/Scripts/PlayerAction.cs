@@ -95,14 +95,6 @@ public class PlayerAction : MonoBehaviour
                     isInteracting = false;
                 }
             }
-            else if(hit.collider.CompareTag("Item"))
-            {
-                Outline outline = hit.collider.GetComponent<Outline>();
-                outline.enabled = true;
-
-                PickupObj pickupObj = hit.collider.GetComponent<PickupObj>();
-                pickupObj.OnPointerClick();
-            }
             else
             {
                 // Eキーを離してもゲージをリセットしない
