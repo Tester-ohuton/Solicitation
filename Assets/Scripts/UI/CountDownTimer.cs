@@ -5,7 +5,6 @@ using TMPro;
 
 public class CountDownTimer : MonoBehaviour
 {
-
 	//　トータル制限時間
 	private float totalTime;
 	//　制限時間（分）
@@ -14,6 +13,7 @@ public class CountDownTimer : MonoBehaviour
 	//　制限時間（秒）
 	[SerializeField]
 	private float seconds;
+
 	//　前回Update時の秒数
 	private float oldSeconds;
 	private TextMeshProUGUI timerText;

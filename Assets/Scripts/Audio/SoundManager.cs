@@ -58,13 +58,17 @@ public class BGMSoundData
     public enum BGM
     {
         Title,
+        Game,
+        End1,
+        End2,
+        Result,
         Dungeon,
         WARNING,// ‚±‚ê‚ªƒ‰ƒxƒ‹‚É‚È‚é
     }
 
     public BGM bgm;
     public AudioClip audioClip;
-    [Range(0, 1)]
+    [Range(0, 0.2f)]
     public float volume = 1;
 }
 
@@ -81,6 +85,6 @@ public class SESoundData
 
     public SE se;
     public AudioClip audioClip;
-    [Range(0, 1)]
+    [Range(0, 0.2f)]
     public float volume = 1;
 }

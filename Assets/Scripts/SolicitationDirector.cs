@@ -23,6 +23,9 @@ public class SolicitationDirector : MonoBehaviour
     // QuitPanel
     [SerializeField] GameObject quitPanel;
 
+    // CountDownTimerPanel
+    [Header("CountDownTimerPanel")] [SerializeField] GameObject countDownTimerPanel;
+
     [Header("CountDownTimer")]
     [SerializeField] CountDownTimer countDownTimer;
 
@@ -39,15 +42,6 @@ public class SolicitationDirector : MonoBehaviour
 
     GameMode gameMode;
 
-    private enum SceneTimer
-    {
-        Monday,
-        Tuesday,
-        Wednesday,
-        Thursday,
-        Friday
-    }
-
     void Start()
     {
         Time.timeScale = 1;
@@ -59,6 +53,7 @@ public class SolicitationDirector : MonoBehaviour
         savePanel.SetActive(false);
         optionPanel.SetActive(false);
         quitPanel.SetActive(false);
+        countDownTimerPanel.SetActive(false);
 
         // 最初のモード
         gameMode = GameMode.Prologue;
@@ -91,22 +86,28 @@ public class SolicitationDirector : MonoBehaviour
         }
     }
 
-    private void GameResult()
-    {
-        resultPanel.SetActive(true);
-        enabled = false; // Stop updating
-    }
-
-    void Setumei()
+    public void Setumei()
     {
         setumeiPanel.SetActive(!setumeiPanel.activeSelf);
-        SceneFlagManager.Instance.isPlayerMoving = !setumeiPanel.activeSelf;
+    }
+
+    public void Option()
+    {
+        optionPanel.SetActive(!optionPanel.activeSelf);
+
+        if (optionPanel.activeInHierarchy)
+        {
+            SceneFlagManager.Instance.isPlayerMoving = false;
+        }
+        else
+        {
+            SceneFlagManager.Instance.isPlayerMoving = true;
+        }
     }
 
     void PrologueMode()
     {
         gameMode = GameMode.Title;
-        Debug.Log(gameMode);
     }
 
     void TitleMode()
@@ -116,8 +117,9 @@ public class SolicitationDirector : MonoBehaviour
 
     public void TitleButton()
     {
-        titlePanel.SetActive(!titlePanel.activeSelf);
-        SceneFlagManager.Instance.isPlayerMoving = !titlePanel.activeSelf;
+        titlePanel.SetActive(false);
+        SceneFlagManager.Instance.isPlayerMoving = true;
+        setumeiPanel.SetActive(true);
         gameMode = GameMode.Game;
     }
 
@@ -133,8 +135,9 @@ public class SolicitationDirector : MonoBehaviour
 
     void GamingMode()
     {
-        if(ItemText.instance.isComp)  // 段ボールを全て開けたら
+        if (ItemText.instance.isComp)  // 段ボールを全て開けたら
         {
+            countDownTimerPanel.SetActive(true);
             countDownTimer.TimerUpdate();
         }
 
@@ -142,10 +145,10 @@ public class SolicitationDirector : MonoBehaviour
         {
             Setumei();
         }
-        else if(Input.GetKeyDown(KeyCode.Escape))
+
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
-            optionPanel.SetActive(!optionPanel.activeSelf);
-            SceneFlagManager.Instance.isPlayerMoving = !optionPanel.activeSelf;
+            Option();
         }
     }
 
@@ -181,22 +184,4 @@ public class SolicitationDirector : MonoBehaviour
     {
         SceneManager.LoadScene("SolicitationScene");
     }
-}
-
-[System.Serializable]
-public class Sun
-{
-    [Header("何日目か")]
-    public bool isAGE; // 日ごとのisAGE情報
-
-    // 各日に異なる部屋に変化を起こすフラグのリスト
-    [Header("部屋に変化を起こすフラグ")]
-    public List<RoomFlag> roomFlags = new List<RoomFlag>();
-}
-
-[System.Serializable]
-public class RoomFlag
-{
-    [Header("部屋の異変を起こすフラグ")]
-    public bool isActive;
 }
