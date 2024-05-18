@@ -29,6 +29,9 @@ public class SolicitationDirector : MonoBehaviour
     [Header("CountDownTimer")]
     [SerializeField] CountDownTimer countDownTimer;
 
+    // ItemTextPanel
+    [Header("ItemTextPanel")] [SerializeField] GameObject itemTextPanel;
+
     // ÉQÅ[ÉÄÉÇÅ[Éh
     enum GameMode
     {
@@ -48,6 +51,7 @@ public class SolicitationDirector : MonoBehaviour
 
         titlePanel.SetActive(true);
 
+        itemTextPanel.SetActive(false);
         setumeiPanel.SetActive(false);
         resultPanel.SetActive(false);
         savePanel.SetActive(false);
@@ -118,6 +122,8 @@ public class SolicitationDirector : MonoBehaviour
     public void TitleButton()
     {
         titlePanel.SetActive(false);
+
+        itemTextPanel.SetActive(true);
         SceneFlagManager.Instance.isPlayerMoving = true;
         setumeiPanel.SetActive(true);
         gameMode = GameMode.Game;
