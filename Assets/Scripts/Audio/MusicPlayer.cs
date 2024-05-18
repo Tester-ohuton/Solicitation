@@ -16,42 +16,39 @@ public class MusicPlayer : MonoBehaviour
 
     void Start()
     {
-        SoundManager.Instance.PlayBGM(titleBGM);
+        //SoundManager.Instance.PlayBGM(titleBGM);
     }
 
     private void Update()
     {
-        if(!isTitle)
+        if(isTitle)
         {
-            StopBGM();
+            SoundManager.Instance.PlayBGM(titleBGM);
+            isTitle = false;
         }
-
-        if(isGame)
+        else if(isGame)
         {
-            StopBGM();
             SoundManager.Instance.PlayBGM(gameBGM);
+            isGame = false;
         }
-
-        if(isEND1)
+        else if(isEND1)
         {
-            StopBGM();
             SoundManager.Instance.PlayBGM(end1_BGM);
+            isEND1 = false;
         }
-
-        if(isEND2)
+        else if(isEND2)
         {
-            StopBGM();
             SoundManager.Instance.PlayBGM(end2_BGM);
+            isEND2 = false;
         }
-
-        if(isResult)
+        else if(isResult)
         {
-            StopBGM();
             SoundManager.Instance.PlayBGM(resultBGM);
+            isResult = false;
         }
     }
 
-    private void StopBGM()
+    public void StopBGM()
     {
         SoundManager.Instance.StopBGM(titleBGM);
         SoundManager.Instance.StopBGM(gameBGM);

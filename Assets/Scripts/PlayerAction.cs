@@ -16,6 +16,8 @@ public class PlayerAction : MonoBehaviour
     private int i = 0;
 
     PlayerLife playerLife;
+    Outline outline;
+    Item item;
 
     private void Start()
     {
@@ -30,7 +32,9 @@ public class PlayerAction : MonoBehaviour
 
     void Update()
     {
-        if (!SceneFlagManager.Instance.isPlayerMoving || playerLife.isGameOver)
+        if (!SceneFlagManager.Instance.isPlayerMoving || 
+            SceneFlagManager.Instance.isSetting ||
+            playerLife.isGameOver)
             return;
 
         // レイを飛ばしてインタラクト可能なオブジェクトを検出
@@ -41,8 +45,11 @@ public class PlayerAction : MonoBehaviour
         {
             if (hit.collider.CompareTag("Card"))
             {
-                Outline outline = hit.collider.GetComponent<Outline>();
-                outline.enabled = true;
+                // Outline取得
+                outline = hit.collider.GetComponent<Outline>();
+
+                // Item取得
+                item = hit.collider.GetComponent<Item>();
 
                 // Eキーが押され、かつインタラクト中でない場合
                 if (Input.GetKeyDown(interactKey) && !isInteracting)
@@ -51,6 +58,9 @@ public class PlayerAction : MonoBehaviour
                     sliderPanel[i].SetActive(true);
 
                     isInteracting = true;
+
+                    // アウトライン表示
+                    outline.enabled = true;
                 }
 
                 // Eキーを押している間はSliderを増やす
@@ -59,7 +69,10 @@ public class PlayerAction : MonoBehaviour
                     interactionProgress += Time.deltaTime * currentValue;
                     interactionSlider[i].value = interactionProgress;
 
-                    if(100 <= interactionProgress)
+                    // アウトライン表示
+                    outline.enabled = true;
+
+                    if (100 <= interactionProgress)
                     {
 
                         ItemText.OnItemText.Invoke();
@@ -77,7 +90,10 @@ public class PlayerAction : MonoBehaviour
 
                         // プレハブを生成
                         Instantiate(cardboardOpen, hit.collider.transform.position, Quaternion.identity);
-                        
+
+                        // Item取得
+                        item.GetCardBoard();
+
                         // アイテムを消すなどの処理を実行
                         Destroy(hit.collider.gameObject);
 
@@ -93,6 +109,9 @@ public class PlayerAction : MonoBehaviour
                 if (Input.GetKeyUp(interactKey))
                 {
                     isInteracting = false;
+
+                    // アウトライン非表示
+                    outline.enabled = false;
                 }
             }
             else

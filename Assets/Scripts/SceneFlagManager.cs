@@ -31,8 +31,18 @@ public class SceneFlagManager : MonoBehaviour
     [Header("設定画面が表示されていた場合にRayを飛ばさないFlag")]
     public bool isSetting;
 
-    [Header("SceneFlagManagerのゲーム内機能を有効にするかしないか")]
-    public bool isActive;
+    [Header("NormalEND")]
+    public bool isNormalEnd;
 
+    [Header("BadEND")]
+    public bool isBadEnd;
 
+    [Header("DayFlag")]
+    public bool[] isDay;
+
+    [Header("CardBoardOpenedFlag")]
+    public bool[] isCardBoardOpened;
+
+    [Header("Chime")]
+    public bool isChime;
 }

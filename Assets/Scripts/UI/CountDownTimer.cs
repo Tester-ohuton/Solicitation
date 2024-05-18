@@ -28,7 +28,7 @@ public class CountDownTimer : MonoBehaviour
 	public void TimerUpdate()
 	{
 		//@§ŒÀŠÔ‚ª0•bˆÈ‰º‚È‚ç‰½‚à‚µ‚È‚¢
-		if (totalTime <= 0f)
+		if (SceneFlagManager.Instance.isStopTime || totalTime <= 0f)
 		{
 			return;
 		}

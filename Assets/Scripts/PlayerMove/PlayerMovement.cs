@@ -26,16 +26,17 @@ public class PlayerMovement : MonoBehaviour
         Time.timeScale = 1;
         cam = Camera.main;
 
-        if (!SceneFlagManager.Instance.isPlayerMoving)
-            return;
-
         UpdateCursorLock();
     }
 
     void Update()
     {
+        UpdateCursorLock();
+
         if (!SceneFlagManager.Instance.isPlayerMoving)
+        {    
             return;
+        }
 
         PlayerRotate();
 
@@ -44,8 +45,6 @@ public class PlayerMovement : MonoBehaviour
         Run();
 
         Jump();
-
-        UpdateCursorLock();
     }
 
     public void PlayerRotate()
@@ -119,11 +118,26 @@ public class PlayerMovement : MonoBehaviour
 
     public void UpdateCursorLock()
     {
+        /*
+         İ’è‚ğŠJ‚¢‚½ó‘Ô CursorLockMode.None;
+         ‘€ìà–¾‚ğŠJ‚¢‚½ó‘Ô CursorLockMode.None;
+         İ’è‚ğ•Â‚¶‚½ó‘Ô CursorLockMode.Locked;
+         ‘€ìà–¾‚ğ•Â‚¶‚½ó‘Ô CursorLockMode.Locked;
+         */
+
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             cursorLock = false;
         }
-        else if (Input.GetMouseButton(0))
+        else if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            cursorLock = false;
+        }
+        else if (Input.GetMouseButtonDown(0))
+        {
+            cursorLock = false;
+        }
+        else if(Input.GetMouseButtonDown(1))
         {
             cursorLock = true;
         }

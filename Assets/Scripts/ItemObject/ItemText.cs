@@ -9,12 +9,8 @@ public class ItemText : MonoBehaviour
     public static ItemText instance;
 
     public int value;
+    public bool[] openNumber;
 
-    public bool isOne;
-    public bool isTwo;
-    public bool isThree;
-    public bool isFour;
-    public bool isFive;
     public bool isComp;
 
     [SerializeField] TextMeshProUGUI itemText;
@@ -33,7 +29,7 @@ public class ItemText : MonoBehaviour
         {
             SetItemValue();
             
-            //アイテム取得エフェクト
+            // クリアエフェクト
             GlobalVolume.instance.ShowItemObtainedEffect();
             
             // クリアエフェクト
@@ -51,33 +47,13 @@ public class ItemText : MonoBehaviour
     {
         itemText.text = "Item: " + value + "/6";
 
-        if (1 <= value)
+        if (ItemLogger.Count == 2)
         {
-            isOne = true;
+            Debug.Log("Two");
         }
-
-        if (2 <= value)
+        if (ItemLogger.Count == 5)
         {
-            isTwo = true;
-            Debug.Log($"isTwo{isTwo}");
-        }
-
-        if (3 <= value)
-        {
-            isThree = true;
-            Debug.Log($"isThree{isThree}");
-        }
-
-        if (4 <= value)
-        {
-            isFour = true;
-            Debug.Log($"isFour{isFour}");
-        }
-
-        if (5 <= value)
-        {
-            isFive = true;
-            Debug.Log($"isFive{isFive}");
+            Debug.Log("Five");
         }
 
         if (6 <= value)
