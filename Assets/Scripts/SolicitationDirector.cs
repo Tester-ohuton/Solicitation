@@ -59,6 +59,8 @@ public class SolicitationDirector : MonoBehaviour
         quitPanel.SetActive(false);
         countDownTimerPanel.SetActive(false);
 
+        SceneFlagManager.Instance.isPlayerMoving = false;
+
         // ç≈èâÇÃÉÇÅ[Éh
         gameMode = GameMode.Prologue;
     }

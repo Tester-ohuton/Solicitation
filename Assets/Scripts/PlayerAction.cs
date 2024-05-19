@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class PlayerAction : MonoBehaviour
 {
-    public float interactionDistance = 2f; // レイの最大距離
+    public float interactionDistance = 3f; // レイの最大距離
     public KeyCode interactKey = KeyCode.E; // インタラクトに使うキー
     public List<Slider> interactionSlider=new List<Slider>(); // インタラクトゲージを表示するSlider
     public List<GameObject> sliderPanel=new List<GameObject>(); // SliderPanelを表示するためのパネル
@@ -112,6 +112,21 @@ public class PlayerAction : MonoBehaviour
 
                     // アウトライン非表示
                     outline.enabled = false;
+                }
+            }
+            else if(hit.collider.CompareTag("Door"))
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Debug.Log("DoorOpen");
+                    Animator animator = hit.collider.GetComponentInParent<Animator>();
+                    animator.SetBool("openAnim", true);
+                }
+                else if (Input.GetMouseButtonDown(1))
+                {
+                    Debug.Log("DoorClose");
+                    Animator animator = hit.collider.GetComponentInParent<Animator>();
+                    animator.SetBool("openAnim", false);
                 }
             }
             else

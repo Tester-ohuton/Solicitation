@@ -25,18 +25,16 @@ public class PlayerMovement : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         Time.timeScale = 1;
         cam = Camera.main;
-
-        UpdateCursorLock();
     }
 
     void Update()
     {
-        UpdateCursorLock();
-
         if (!SceneFlagManager.Instance.isPlayerMoving)
         {    
             return;
         }
+
+        UpdateCursorLock();
 
         PlayerRotate();
 
