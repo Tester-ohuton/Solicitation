@@ -43,6 +43,8 @@ public class PlayerMovement : MonoBehaviour
         Run();
 
         Jump();
+
+        
     }
 
     public void PlayerRotate()

@@ -116,16 +116,29 @@ public class PlayerAction : MonoBehaviour
             }
             else if(hit.collider.CompareTag("Door"))
             {
+                Animator animator = hit.collider.GetComponentInParent<Animator>();
                 if (Input.GetMouseButtonDown(0))
                 {
                     Debug.Log("DoorOpen");
-                    Animator animator = hit.collider.GetComponentInParent<Animator>();
                     animator.SetBool("openAnim", true);
                 }
                 else if (Input.GetMouseButtonDown(1))
                 {
                     Debug.Log("DoorClose");
-                    Animator animator = hit.collider.GetComponentInParent<Animator>();
+                    animator.SetBool("openAnim", false);
+                }
+            }
+            else if (hit.collider.CompareTag("Entrance"))
+            {
+                Animator animator = hit.collider.GetComponentInParent<Animator>();
+                if (Input.GetMouseButtonDown(0))
+                {
+                    Debug.Log("EntranceOpen");
+                    animator.SetBool("openAnim", true);
+                }
+                else if (Input.GetMouseButtonDown(1))
+                {
+                    Debug.Log("EntranceClose");
                     animator.SetBool("openAnim", false);
                 }
             }

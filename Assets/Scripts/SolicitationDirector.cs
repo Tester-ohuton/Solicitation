@@ -125,6 +125,7 @@ public class SolicitationDirector : MonoBehaviour
     {
         titlePanel.SetActive(false);
 
+        ExampleEventSetup.OnStartProlog.Invoke();
         itemTextPanel.SetActive(true);
         SceneFlagManager.Instance.isPlayerMoving = true;
         setumeiPanel.SetActive(true);
@@ -143,12 +144,10 @@ public class SolicitationDirector : MonoBehaviour
 
     void GamingMode()
     {
-        if (ItemText.instance.isComp)  // 段ボールを全て開けたら
-        {
-            countDownTimerPanel.SetActive(true);
-            countDownTimer.TimerUpdate();
-        }
-
+        // クライマックス
+        //countDownTimerPanel.SetActive(true);
+        //countDownTimer.TimerUpdate();
+        
         if (Input.GetKeyDown(KeyCode.Tab))
         {
             Setumei();

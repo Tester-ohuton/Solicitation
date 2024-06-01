@@ -14,7 +14,7 @@ public class Item : MonoBehaviour
         }
         else
         {
-            Debug.Log("アイテムを獲得してないよ");
+            Debug.Log("段ボールを開けてないよ");
         }
     }
 

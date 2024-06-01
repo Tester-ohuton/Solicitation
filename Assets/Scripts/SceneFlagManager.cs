@@ -37,12 +37,6 @@ public class SceneFlagManager : MonoBehaviour
     [Header("BadEND")]
     public bool isBadEnd;
 
-    [Header("DayFlag")]
-    public bool[] isDay;
-
     [Header("CardBoardOpenedFlag")]
-    public bool[] isCardBoardOpened;
-
-    [Header("Chime")]
-    public bool isChime;
+    public List<int> isCardBoardOpened;
 }

@@ -8,10 +8,8 @@ public class ItemText : MonoBehaviour
 {
     public static ItemText instance;
 
-    public int value;
-    public bool[] openNumber;
-
-    public bool isComp;
+    [HideInInspector] public int value;
+    public bool openNumber;
 
     [SerializeField] TextMeshProUGUI itemText;
 
@@ -40,31 +38,16 @@ public class ItemText : MonoBehaviour
     private void Start()
     {
         itemText.text = "Item: " + value + "/6";
-        isComp = false;
     }
 
     private void Update()
     {
         itemText.text = "Item: " + value + "/6";
-
-        if (ItemLogger.Count == 2)
-        {
-            Debug.Log("Two");
-        }
-        if (ItemLogger.Count == 5)
-        {
-            Debug.Log("Five");
-        }
-
-        if (6 <= value)
-        {
-            isComp = true;
-            Debug.Log($"isComp{isComp}");
-        }
     }
 
     private void SetItemValue()
     {
         value += 1;
+        SceneFlagManager.Instance.isCardBoardOpened.Add(ItemLogger.Count);
     }
 }

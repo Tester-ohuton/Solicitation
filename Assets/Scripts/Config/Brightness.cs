@@ -9,15 +9,15 @@ public class Brightness : MonoBehaviour
 {
     public Light mainLight; // Main Lightの参照
     public Slider brightnessSlider; // Sliderの参照
-    public VolumeProfile volumeProfile;
-    public GlobalVolume globalVolume; // Global Volumeの参照
+    public VolumeProfile profile;
     
     private SplitToning splitToning; // Bloomエフェクトの参照
+    // private ColorAdjustments colorAdjustments; // ColorAdjustmentsの参照
 
     void Start()
     {
         // Global VolumeからSplitToningエフェクトを取得
-        globalVolume.volumeProfile.TryGet(out splitToning);
+        profile.TryGet(out splitToning);
         // Sliderの初期値を設定
         brightnessSlider.value = mainLight.intensity;
         // Sliderの値が変更されたときのイベントを登録
@@ -30,6 +30,7 @@ public class Brightness : MonoBehaviour
         mainLight.intensity = newValue;
 
         // BloomエフェクトのIntensityパラメータを調整する
-        splitToning.balance.Override(newValue * 5); // 5は適切な倍率ですが必要に応じて調整してください
+        splitToning.balance.Override(newValue * 5); // -30～30が丁度いい
+        // colorAdjustments.postExposure.Override(newValue * 5); // 白飛びしたり真っ黒になる
     }
 }

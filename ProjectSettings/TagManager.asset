@@ -7,6 +7,7 @@ TagManager:
   - Item
   - Card
   - Door
+  - Entrance
   layers:
   - Default
   - TransparentFX
@@ -18,7 +19,7 @@ TagManager:
   - 
   - 
   - Volume
-  - Item
+  - Wall
   - Ground
   - 
   - 
