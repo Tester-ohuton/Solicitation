@@ -25,14 +25,7 @@ public class AudioConfig : MonoBehaviour
             decibel = Mathf.Clamp(decibel, -80f, 0f);
             audioMixer.SetFloat("BGM", decibel);
             audioMixer.SetFloat("SE", decibel);
+            audioMixer.SetFloat("Master", decibel);
         });
-    }
-
-    void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.Space))
-        {
-            seAudioSource.Play();
-        }
     }
 }

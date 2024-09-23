@@ -1,7 +1,13 @@
 using UnityEngine;
+using Cinemachine;
+using UnityEngine.UI;
 
 public class PlayerMovement : MonoBehaviour
 {
+    public Slider mouseSensitivitySlider;
+
+    [SerializeField] Camera cam;
+    [SerializeField] CinemachineVirtualCamera cinemachineVirtualCamera;
     [SerializeField] Transform viewPoint;
     [SerializeField] float mouseSensitivity = 1f;
     [SerializeField] Vector3 jumpForce = new Vector3(0, 6, 0);
@@ -9,49 +15,72 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] LayerMask groundLayer;
     [SerializeField] float walkSpeed = 4f;
     [SerializeField] float runSpeed = 8f;
+    [SerializeField] float rot = 75f;
 
     private Rigidbody rb;
     private Vector2 mouseInput;
     private float verticalMouseInput;
-    private Camera cam;
 
     private Vector3 moveDir;
     private Vector3 movement;
     private float activeMoveSpeed;
-    private bool cursorLock = true;
+
+    // New variables for idle sensitivity reduction
+    private float idleMouseSensitivity = 0.2f;
+    private float mouseIdleTimer = 0f;
+    private float idleThreshold = 1f;
+
+    public void SetMouseSensitivity(float value)
+    {
+        mouseSensitivity = value;
+    }
 
     void Start()
     {
+        mouseSensitivitySlider.onValueChanged.AddListener(SetMouseSensitivity);
+
         rb = GetComponent<Rigidbody>();
         Time.timeScale = 1;
-        cam = Camera.main;
     }
 
     void Update()
     {
-        if (!SceneFlagManager.Instance.isPlayerMoving)
-        {    
+        if (!PlayerController.instance.isPlayerMoving)
+        {
             return;
         }
-
-        UpdateCursorLock();
-
-        PlayerRotate();
 
         PlayerMove();
 
         Run();
 
-        Jump();
+        PlayerRotate();
 
-        
+        //Jump();
     }
 
     public void PlayerRotate()
     {
         mouseInput = new Vector2(
-            Input.GetAxisRaw("Mouse X") * mouseSensitivity,
-            Input.GetAxisRaw("Mouse Y") * mouseSensitivity);
+            Input.GetAxisRaw("Mouse X"),
+            Input.GetAxisRaw("Mouse Y"));
+
+        if (mouseInput.sqrMagnitude > 0.01f)
+        {
+            // Mouse has moved, reset the timer and use normal sensitivity
+            mouseIdleTimer = 0f;
+            mouseInput *= mouseSensitivity;
+        }
+        else
+        {
+            // Mouse has not moved, increment the idle timer
+            mouseIdleTimer += Time.deltaTime;
+            if (mouseIdleTimer >= idleThreshold)
+            {
+                // Reduce sensitivity if idle for longer than the threshold
+                mouseInput *= idleMouseSensitivity;
+            }
+        }
 
         transform.rotation = Quaternion.Euler(
             transform.eulerAngles.x,
@@ -59,7 +88,7 @@ public class PlayerMovement : MonoBehaviour
             transform.eulerAngles.z);
 
         verticalMouseInput += mouseInput.y;
-        verticalMouseInput = Mathf.Clamp(verticalMouseInput, -60f, 60f);
+        verticalMouseInput = Mathf.Clamp(verticalMouseInput, -rot,rot);
 
         viewPoint.rotation = Quaternion.Euler(
             -verticalMouseInput,
@@ -69,8 +98,18 @@ public class PlayerMovement : MonoBehaviour
 
     private void LateUpdate()
     {
+        if (!PlayerController.instance.isPlayerMoving)
+        {
+            return;
+        }
+
+        
         cam.transform.position = viewPoint.position;
         cam.transform.rotation = viewPoint.rotation;
+
+        cinemachineVirtualCamera.transform.position = viewPoint.position;
+        cinemachineVirtualCamera.transform.rotation = viewPoint.rotation;
+        
     }
 
     public void PlayerMove()
@@ -87,22 +126,22 @@ public class PlayerMovement : MonoBehaviour
         transform.position += movement * activeMoveSpeed * Time.deltaTime;
     }
 
-    public void Jump()
-    {
-        if (IsGround() && Input.GetKeyDown(KeyCode.Space))
-        {
-            rb.AddForce(jumpForce, ForceMode.Impulse);
-        }
-    }
+    //public void Jump()
+    //{
+    //    if (IsGround() && Input.GetKeyDown(KeyCode.Space))
+    //    {
+    //        rb.AddForce(jumpForce, ForceMode.Impulse);
+    //    }
+    //}
 
-    public bool IsGround()
-    {
-        return Physics.Raycast(
-            groundCheckPoint.position,
-            Vector3.down,
-            0.25f,
-            groundLayer);
-    }
+    //public bool IsGround()
+    //{
+    //    return Physics.Raycast(
+    //        groundCheckPoint.position,
+    //        Vector3.down,
+    //        0.25f,
+    //        groundLayer);
+    //}
 
     public void Run()
     {
@@ -116,33 +155,15 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void UpdateCursorLock()
+    public void UpdateCursorLock(bool cursor)
     {
         /*
          ê›íËÇäJÇ¢ÇΩèÛë‘ CursorLockMode.None;
          ëÄçÏê‡ñæÇäJÇ¢ÇΩèÛë‘ CursorLockMode.None;
-         ê›íËÇï¬Ç∂ÇΩèÛë‘ CursorLockMode.Locked;
-         ëÄçÏê‡ñæÇï¬Ç∂ÇΩèÛë‘ CursorLockMode.Locked;
+         ï¬Ç∂ÇΩèÛë‘ 
          */
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            cursorLock = false;
-        }
-        else if (Input.GetKeyDown(KeyCode.Tab))
-        {
-            cursorLock = false;
-        }
-        else if (Input.GetMouseButtonDown(0))
-        {
-            cursorLock = false;
-        }
-        else if(Input.GetMouseButtonDown(1))
-        {
-            cursorLock = true;
-        }
-
-        if (cursorLock)
+        if (cursor)
         {
             Cursor.lockState = CursorLockMode.Locked;
         }

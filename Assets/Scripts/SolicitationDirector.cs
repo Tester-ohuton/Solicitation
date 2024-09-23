@@ -1,194 +1,174 @@
+using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 
+/*
+ 各シーンのC#スクリプトを管理
+ Panelを管理
+ */
 public class SolicitationDirector : MonoBehaviour
 {
-    // ResultPanel
-    [SerializeField] GameObject resultPanel;
+    public static SolicitationDirector instance;
 
-    // SetumeiPanel
-    [SerializeField] GameObject setumeiPanel;
-
-    // titlePanel
-    [SerializeField] GameObject titlePanel;
-
-    // SavePanel
-    [SerializeField] GameObject savePanel;
-
-    // OptionPanel
-    [SerializeField] GameObject optionPanel;
-
-    // QuitPanel
-    [SerializeField] GameObject quitPanel;
-
-    // CountDownTimerPanel
-    [Header("CountDownTimerPanel")] [SerializeField] GameObject countDownTimerPanel;
-
-    [Header("CountDownTimer")]
-    [SerializeField] CountDownTimer countDownTimer;
-
-    // ItemTextPanel
-    [Header("ItemTextPanel")] [SerializeField] GameObject itemTextPanel;
-
-    // ゲームモード
-    enum GameMode
+    private void Awake()
     {
-        Prologue,
-        Title,
-        Game,
-        End1,
-        End2,
-        Result,
-    }
-
-    GameMode gameMode;
-
-    void Start()
-    {
-        Time.timeScale = 1;
-
-        titlePanel.SetActive(true);
-
-        itemTextPanel.SetActive(false);
-        setumeiPanel.SetActive(false);
-        resultPanel.SetActive(false);
-        savePanel.SetActive(false);
-        optionPanel.SetActive(false);
-        quitPanel.SetActive(false);
-        countDownTimerPanel.SetActive(false);
-
-        SceneFlagManager.Instance.isPlayerMoving = false;
-
-        // 最初のモード
-        gameMode = GameMode.Prologue;
-    }
-
-    void Update()
-    {
-        switch (gameMode)
+        if(instance == null)
         {
-            case GameMode.Prologue:
-                PrologueMode();
-                break;
-            case GameMode.Title:
-                TitleMode();
-                break;
-            case GameMode.Game:
-                GamingMode();
-                break;
-            case GameMode.End1:
-                End1Mode();
-                break;
-            case GameMode.End2:
-                End2Mode();
-                break;
-            case GameMode.Result:
-                ResultMode();
-                break;
-            default:
-                break;
+            instance = this;
         }
     }
 
-    public void Setumei()
-    {
-        setumeiPanel.SetActive(!setumeiPanel.activeSelf);
-    }
+    [Header("OptionPanel")]
+    [SerializeField] GameObject optionPanel;
 
-    public void Option()
-    {
-        optionPanel.SetActive(!optionPanel.activeSelf);
+    public KeyCode pressKey = KeyCode.Tab;
+    
+    [Header("DialogPanel")]
+    [SerializeField] GameObject dialogPanel;
 
-        if (optionPanel.activeInHierarchy)
+    private GameObject player;
+    private PlayerController playerController;
+
+    private void Start()
+    {
+        player = GameObject.Find("ChaM01_Player");
+
+        if (player != null)
         {
-            SceneFlagManager.Instance.isPlayerMoving = false;
+            playerController = player.GetComponent<PlayerController>();
         }
         else
         {
-            SceneFlagManager.Instance.isPlayerMoving = true;
+            Debug.Log("プレイヤーが見つかりません");
+        }
+
+        Time.timeScale = 1;
+
+        //StartCoroutine(SetDirection());
+        SetGame();
+    }
+
+    private void Update()
+    {
+        UpdateGame();
+    }
+
+    // Method to update the game state
+    private void UpdateGame()
+    {
+        if (Input.GetKeyDown(pressKey))
+        {
+            OptionKeyPress(); // Option Window true/false
         }
     }
 
-    void PrologueMode()
+    public void OptionKeyPress() /* ボタンからも呼ぶ */
     {
-        gameMode = GameMode.Title;
+        optionPanel.SetActive(!optionPanel.activeSelf);
+
+        if (!optionPanel.activeInHierarchy)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+
+            if (playerController != null)
+            {
+                playerController.isPlayerMoving = true;
+            }
+            else
+            {
+                //Debug.Log("Playerが見つかりません");
+            }
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+
+            if (playerController != null)
+            {
+                playerController.isPlayerMoving = false;
+            }
+            else
+            {
+                //Debug.Log("Playerが見つかりません");
+            }
+        }
     }
 
-    void TitleMode()
+    public void Dialog(bool isActive)
     {
-        //Debug.Log(gameMode);
+        dialogPanel.SetActive(isActive);
+
+        if(isActive)
+        {
+            Cursor.lockState = CursorLockMode.None;
+
+            if (playerController != null)
+            {
+                playerController.isPlayerMoving = false;
+            }
+            else
+            {
+                //Debug.Log("Playerが見つかりません");
+            }
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+
+            if (playerController != null)
+            {
+                playerController.isPlayerMoving = true;
+            }
+            else
+            {
+                //Debug.Log("Playerが見つかりません");
+            }
+        }
     }
 
-    public void TitleButton()
-    {
-        titlePanel.SetActive(false);
-
-        ExampleEventSetup.OnStartProlog.Invoke();
-        itemTextPanel.SetActive(true);
-        SceneFlagManager.Instance.isPlayerMoving = true;
-        setumeiPanel.SetActive(true);
-        gameMode = GameMode.Game;
-    }
-
-    public void QuitButton()
-    {
-        quitPanel.SetActive(!quitPanel.activeSelf);
-    }
-
-    public void QuitPanel()
+    /*ボタンから呼ぶ*/
+    public void OnQuit()
     {
         Application.Quit();
     }
 
-    void GamingMode()
+    /*
+    private IEnumerator SetDirection()
     {
-        // クライマックス
-        //countDownTimerPanel.SetActive(true);
-        //countDownTimer.TimerUpdate();
-        
-        if (Input.GetKeyDown(KeyCode.Tab))
+        isLoading = true;
+
+        yield return new WaitForSeconds(3f);
+
+        isLoading = false;
+    }
+    */
+
+    /*ボタンから呼ぶ*/
+    public void SetGame()
+    {
+        // Enable dialog mode through your director system
+        Dialog(true);
+
+        if (playerController != null)
         {
-            Setumei();
+            if (optionPanel.activeInHierarchy || dialogPanel.activeInHierarchy)
+            {
+                playerController.isPlayerMoving = false;
+            }
+            else
+            {
+                playerController.isPlayerMoving = true;
+            }
+        }
+        else
+        {
+            //Debug.Log("Playerが見つかりません");
         }
 
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Option();
-        }
-    }
+        GameDirector.instance.Retry();
 
-    public void SaveButton()
-    {
-        savePanel.SetActive(!savePanel.activeSelf);
-    }
-
-    public void OptionButton(int timeScale)
-    {
-        Time.timeScale = timeScale;
-        titlePanel.SetActive(!titlePanel.activeSelf);
-        optionPanel.SetActive(!optionPanel.activeSelf);
-    }
-
-    void End1Mode()
-    {
-        Debug.Log(gameMode);
-    }
-
-    void End2Mode()
-    {
-        Debug.Log(gameMode);
-    }
-
-    void ResultMode()
-    {
-        Debug.Log(gameMode);
-    }
-
-    // リトライボタンが押された時の処理
-    public void OnClickRetry()
-    {
-        SceneManager.LoadScene("SolicitationScene");
+        // ゲーム開始時にカーソルを中央に配置し、表示する
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 }

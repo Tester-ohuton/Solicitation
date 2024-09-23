@@ -79,6 +79,7 @@ public class SESoundData
     {
         Dead,
         ItemGet,
+        Comp,
         Goal,
         CAVEAT,// ‚±‚ê‚ªƒ‰ƒxƒ‹‚É‚È‚é
     }

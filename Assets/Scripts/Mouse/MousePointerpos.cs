@@ -10,7 +10,7 @@ public class MousePointerpos : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     private void Start()
     {
-        Cursor.SetCursor(cursorTexture2, Vector2.zero, CursorMode.Auto);
+        //Cursor.SetCursor(cursorTexture2, Vector2.zero, CursorMode.Auto);
     }
 
     public void OnPointerEnter(PointerEventData eventData)

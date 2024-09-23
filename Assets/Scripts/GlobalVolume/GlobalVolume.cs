@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class GlobalVolume : MonoBehaviour
 {
@@ -16,6 +17,8 @@ public class GlobalVolume : MonoBehaviour
     }
 
     public VolumeProfile volumeProfile;
+    public Slider volumeSlider;
+
     private Vignette vignette;
     private SplitToning splitToning;
 
@@ -28,6 +31,15 @@ public class GlobalVolume : MonoBehaviour
         // Vignetteを取得
         volumeProfile.TryGet(out vignette);
         volumeProfile.TryGet(out splitToning);
+
+        if (volumeSlider == null) return;
+
+        // スライダーを触ったら音量が変化する
+        volumeSlider.onValueChanged.AddListener((value) =>
+        {
+            SetSplitToningIntensity(value);
+            SetSplitToningColor(Color.white);
+        });
     }
 
     public void SetSplitToningIntensity(float intensity)
@@ -65,17 +77,25 @@ public class GlobalVolume : MonoBehaviour
     }
 
     // アイテム取得時の表現
-    public void ShowItemObtainedEffect()
+    public void ShowItemObtainedEffect(float vine, float duration)
     {
         // VignetteのIntensityを0.5fにTween
-        DOTween.To(() => vignette.intensity.value, x => vignette.intensity.value = x, 0.4f, 1f)
+        DOTween.To(() => vignette.intensity.value, x => vignette.intensity.value = x, vine, 1f)
             .OnComplete(() =>
             {
                 // 1秒後にVignetteのIntensityを0fにTween
-                DOTween.To(() => vignette.intensity.value, x => vignette.intensity.value = x, 0f, 1f);
+                DOTween.To(() => vignette.intensity.value, x => vignette.intensity.value = x, 0f, duration);
             });
 
-        SetColor(Color.yellow);
+        SetColor(Color.black);
+    }
+
+    public void ShowOpenEntranceEffect(float vine, float duration)
+    {
+        // VignetteのIntensityを0.5fにTween
+        DOTween.To(() => vignette.intensity.value, x => vignette.intensity.value = x, vine, duration);
+
+        SetColor(Color.black);
     }
 
     // 警告時の表現

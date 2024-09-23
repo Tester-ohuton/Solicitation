@@ -22,7 +22,7 @@ public class PlayerCameraBob : MonoBehaviour
             return;
         });
 
-        if (!SceneFlagManager.Instance.isPlayerMoving)
+        if (!PlayerController.instance.isPlayerMoving)
             return;
 
         // ƒvƒŒƒCƒ„[‚ªˆÚ“®’†‚©‚Ç‚¤‚©‚ğ”»’è
