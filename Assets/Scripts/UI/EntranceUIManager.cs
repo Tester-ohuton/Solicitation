@@ -121,7 +121,7 @@ public class EntranceUIManager : MonoBehaviour
 
     public bool Answer(bool isActive)
     {
-        if (4 <= GameManager.instance.Day() && GameManager.instance.AreAllCardboardsInteracted()) // 4“ú–Ú‚Épc‚ð‚·‚×‚ÄW‚ß‚½‚ç
+        if (4 <= GameManager.instance.Day() && GameManager.instance.AreAllCardboardsInteracted()) // 4“ú–Ú‚É‚·‚×‚Ä‰×•¨‚ðŠJ‚¯‚½‚ç
         {
             peekButton.gameObject.SetActive(false);
             cancelButton.gameObject.SetActive(false);
