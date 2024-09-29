@@ -17,7 +17,7 @@ public class PasswordPanel : MonoBehaviour
     [SerializeField] private GameOverEffect gameOverEffect;
 
     // 正しいパスワードの順番
-    private List<int> correctPassword = new List<int> { 1, 7, 1, 4 };
+    private List<int> correctPassword = new List<int> { 6, 2, 2, 3 };
 
     // プレイヤーの入力を保持するリスト
     private List<int> playerInput = new List<int>();
