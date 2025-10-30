@@ -10,6 +10,7 @@ public class DialogueManager : MonoBehaviour
     public Text dialogueText;
     public Text characterNameText;
     public Button nextButton;
+    public GameObject dialogPanel;
     
     public int currentSituationID = 0;
     private int sentenceIndex = 0;
@@ -48,14 +49,18 @@ public class DialogueManager : MonoBehaviour
     {
         if (ds == null)
         {
-            Debug.LogError("DialogSentenceが見つかりません (situationID: " + currentSituationID + ")");
+            dialogPanel.SetActive(false);
+            //Debug.LogError("DialogSentenceが見つかりません (situationID: " + currentSituationID + ")");
             return;
         }
+        
         if (ds.sentences == null)
         {
-            Debug.LogError("DialogSentence.sentencesがnullです (situationID: " + ds.situationID + ")");
+            dialogPanel.SetActive(false);
+            //Debug.LogError("DialogSentence.sentencesがnullです (situationID: " + ds.situationID + ")");
             return;
         }
+
         if (sentenceIndex < ds.sentences.Count)
         {
             dialogueText.text = ds.sentences[sentenceIndex];

@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using System.Collections;
+using UnityEngine.UI;
 
-// �e�C�x���g�̏�Ԃ��`
 public enum EventStatus
 {
     NotStarted,
@@ -10,7 +10,6 @@ public enum EventStatus
     Completed
 }
 
-// �e�C�x���g�̃N���X
 [System.Serializable]
 public class GameEvent
 {
@@ -32,7 +31,6 @@ public class GameEvent
     }
 }
 
-// ����̓��t�̃C�x���g��ێ�����N���X
 [System.Serializable]
 public class DayEvents
 {
@@ -40,16 +38,15 @@ public class DayEvents
     public List<GameEvent> events;
 }
 
-// �S�̂̃C�x���g�Ǘ��N���X
 public class EventManager : MonoBehaviour
 {
     public static EventManager Instance;
 
     [Header("UI Elements")]
-    [SerializeField] private TextMeshProUGUI dayDescriptionText;
-    [SerializeField] private TextMeshProUGUI eventDescriptionText;
+    [SerializeField] private Text dayDescriptionText;
+    [SerializeField] private Text eventDescriptionText;
 
-    [Header("�e���t�̃C�x���g���X�g")]
+    [Header("日ごとのイベントリスト")]
     public List<DayEvents> dayEventsList;
     private int currentDay = 0;
     private int currentEvent = 0;

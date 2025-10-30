@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
     public bool isCleared = false;
     public bool isGameOver = false;
     public bool isCursor = true;
+    public int totalDays = 4;
+    public List<int> completedDays = new List<int>() { 1, 2, 3, 4, 5, 6 };
 
     public Dictionary<int, int> dayCardboardRequirements = new Dictionary<int, int>()
     {

@@ -10,7 +10,7 @@ public class OutsideClearCollider : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            clearEffect.PlayGameClearEffect();
+            clearEffect.PlayClearEffect();
         }
     }
 }

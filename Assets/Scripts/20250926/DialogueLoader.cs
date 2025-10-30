@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
 using UnityEngine.UI;
-using TMPro;
 
 [System.Serializable]
 public class Dialogue
@@ -16,8 +15,8 @@ public class DialogueLoader : MonoBehaviour
 {
     public string jsonFileName;
     public Dialogue dialogueData;
-    public TextMeshProUGUI npcNameText;
-    public TextMeshProUGUI dialogueText;
+    public Text npcNameText;
+    public Text dialogueText;
 
     void Start()
     {

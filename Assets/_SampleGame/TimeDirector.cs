@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
+using UnityEngine.UI;
 
 [System.Serializable]
 public class TimeData
@@ -13,7 +13,7 @@ public class TimeData
 
 public class TimeDirector : MonoBehaviour
 {
-    private TextMeshProUGUI timerText;
+    private Text timerText;
     public float   second;
     public int     minute;
     public int     hour;
@@ -21,7 +21,7 @@ public class TimeDirector : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        timerText = GetComponent<TextMeshProUGUI>();
+        timerText = GetComponent<Text>();
     }
 
     // Update is called once per frame

@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Quest_Level_1 : MonoBehaviour
+public class Quest : MonoBehaviour
 {
     public int clearNum;
 
@@ -24,7 +24,6 @@ public class Quest_Level_1 : MonoBehaviour
         OnGameClearEvent.AddListener(() =>
         {
             GameClear();
-            GameClearSceneChange();
         });
     }
 
@@ -52,11 +51,6 @@ public class Quest_Level_1 : MonoBehaviour
 
     public void GameClear()
     {
-        StaticClear.AddClearNum();
-    }
-
-    public void GameClearSceneChange()
-    {
-        FadeManager.Instance.LoadScene("Game Clear", 2.0f);   
+        StaticClear.AddStageCount();
     }
 }

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using System.Collections;
+using System.Collections.Generic;
 
 public class UIManager : MonoBehaviour
 {
@@ -17,9 +18,9 @@ public class UIManager : MonoBehaviour
     [TextArea]
     public string text;
 
-    public TextMeshProUGUI cardboardCountText;
-    public TextMeshProUGUI dayText;  // Add this UI Text element for the day display
-    public TextMeshProUGUI gameTimeText;  // Add this UI Text element for game time display
+    public Text cardboardCountText;
+    public Text dayText;  // Add this UI Text element for the day display
+    public Text gameTimeText;  // Add this UI Text element for game time display
 
     public Button eventButton;
     public GameObject eventButtonPanel;
@@ -41,7 +42,11 @@ public class UIManager : MonoBehaviour
             Debug.Log("段ボールはすべて開けた!");
 
             // 日付ごとにコンプリート
-
+            int currentDay = GameManager.instance.currentDay;
+            if (!GameManager.instance.completedDays.Contains(currentDay))
+            {
+                GameManager.instance.completedDays.Add(currentDay);
+            }
         }
         else
         {

@@ -143,14 +143,12 @@ public class EntranceUIManager : MonoBehaviour
         // Camera switching logic would go here
         mainCamera.gameObject.SetActive(false);
         peekingCamera.gameObject.SetActive(true);
-        GlobalVolume.instance.ShowOpenEntranceEffect(1f, 1f);
         playerController.isPlayerMoving = false;
 
         yield return new WaitForSeconds(2f);
 
         mainCamera.gameObject.SetActive(true);
         peekingCamera.gameObject.SetActive(false);
-        GlobalVolume.instance.ShowOpenEntranceEffect(0f, 1f);
         playerController.isPlayerMoving = true;
     }
 

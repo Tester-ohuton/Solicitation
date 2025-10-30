@@ -1,7 +1,6 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using TMPro;
 
 public class CountDownTimer : MonoBehaviour
 {
@@ -16,13 +15,13 @@ public class CountDownTimer : MonoBehaviour
 
 	//Å@ëOâÒUpdateéûÇÃïbêî
 	private float oldSeconds;
-	private TextMeshProUGUI timerText;
+	private Text timerText;
 
 	void Start()
 	{
 		totalTime = minute * 60 + seconds;
 		oldSeconds = 0f;
-		timerText = GetComponentInChildren<TextMeshProUGUI>();
+		timerText = GetComponentInChildren<Text>();
 	}
 
 	public void TimerUpdate()

@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-using TMPro;
+using UnityEngine.UI;
 
 public class DialogSystemManager : MonoBehaviour
 {
@@ -8,8 +8,8 @@ public class DialogSystemManager : MonoBehaviour
     [Header("Dialog Sentences")]
     public string textArea;
 
-    public TextMeshProUGUI nameText;
-    public TextMeshProUGUI dialogText;
+    public Text nameText;
+    public Text dialogText;
 
     private Queue<DialogSentence> dialogQueue;
     private int currentSentenceIndex;

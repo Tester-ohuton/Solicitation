@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using UnityEngine.SceneManagement;
 using System.IO;
 
@@ -11,7 +10,7 @@ public class SaveUIManager : MonoBehaviour
     public Button ni;
     public Button san;
 
-    public TextMeshProUGUI[] timeText;
+    public Text[] timeText;
 
     private string saveFilePath;
 
