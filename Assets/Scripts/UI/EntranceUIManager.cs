@@ -41,9 +41,6 @@ public class EntranceUIManager : MonoBehaviour
     [Space]
     [SerializeField] private TriggerFlag triggerFlag;
 
-    [Space]
-    [SerializeField] private PasswordPanel passwordPanel;
-
     private GameObject player;
     private PlayerController playerController;
 
@@ -76,9 +73,6 @@ public class EntranceUIManager : MonoBehaviour
         {
             HideUI();
             OpenDoor();
-
-            // TODO:
-            passwordPanel.GameOver();
         });
 
         cancelButton.onClick.AddListener(() =>
@@ -92,8 +86,6 @@ public class EntranceUIManager : MonoBehaviour
             RockUIPanelActive(true);
         });
 
-        OnEntranceUI.RemoveAllListeners();
-
         OnEntranceUI.AddListener(() =>
         {
             ActiveUI();
@@ -102,7 +94,7 @@ public class EntranceUIManager : MonoBehaviour
 
     private void Update()
     {
-        Answer(true); // 4日目に表示
+        Answer(true); // 7日目に表示
     }
 
     public void RockUIPanelActive(bool isActive)
@@ -121,7 +113,7 @@ public class EntranceUIManager : MonoBehaviour
 
     public bool Answer(bool isActive)
     {
-        if (4 <= GameManager.instance.Day() && GameManager.instance.AreAllCardboardsInteracted()) // 4日目にすべて荷物を開けたら
+        if (7 <= GameManager.instance.Day() && GameManager.instance.AreAllCardboardsInteracted()) // 7日目にすべて荷物を開けたら
         {
             peekButton.gameObject.SetActive(false);
             cancelButton.gameObject.SetActive(false);

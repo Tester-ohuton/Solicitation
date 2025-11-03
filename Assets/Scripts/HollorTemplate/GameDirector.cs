@@ -26,6 +26,12 @@ public class GameDirector : MonoBehaviour
     public int endRange3;
     public int startRange4;
     public int endRange4;
+    public int startRange5;
+    public int endRange5;
+    public int startRange6;
+    public int endRange6;
+    public int startRange7;
+    public int endRange7;
 
     private void Start()
     {
@@ -61,6 +67,30 @@ public class GameDirector : MonoBehaviour
     public void Date4Game()
     {
         for (int i = startRange4; i < endRange4; i++)
+        {
+            anomalyManager.TriggerAnomaly(i);
+        }
+    }
+
+    public void Date5Game()
+    {
+        for (int i = startRange5; i < endRange5; i++)
+        {
+            anomalyManager.TriggerAnomaly(i);
+        }
+    }
+
+    public void Date6Game()
+    {
+        for (int i = startRange6; i < endRange6; i++)
+        {
+            anomalyManager.TriggerAnomaly(i);
+        }
+    }
+
+    public void Date7Game()
+    {
+        for (int i = startRange7; i < endRange7; i++)
         {
             anomalyManager.TriggerAnomaly(i);
         }

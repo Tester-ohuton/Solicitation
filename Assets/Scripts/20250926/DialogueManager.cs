@@ -9,7 +9,6 @@ public class DialogueManager : MonoBehaviour
 
     public Text dialogueText;
     public Text characterNameText;
-    public Button nextButton;
     public GameObject dialogPanel;
     
     public int currentSituationID = 0;
@@ -17,13 +16,11 @@ public class DialogueManager : MonoBehaviour
 
     void Start()
     {
-        if (dialogueText == null || characterNameText == null || nextButton == null)
+        if (dialogueText == null || characterNameText == null)
         {
             Debug.LogError("DialogueManager: UI要素が割り当てられていません");
             return;
         }
-
-        nextButton.onClick.AddListener(OnNextButtonClicked);
 
         // 最初の会話をセット      // 必要に応じて状況IDによる分岐
         SetCurrentDialogue(currentSituationID);
@@ -69,7 +66,6 @@ public class DialogueManager : MonoBehaviour
         }
         else
         {
-            nextButton.gameObject.SetActive(false); // 会話終了
             dialogueText.text = "";
             characterNameText.text = "";
             Debug.Log("会話終了 (situationID: " + ds.situationID + ")");
@@ -79,7 +75,6 @@ public class DialogueManager : MonoBehaviour
             DialogSentence nextDs = dialogSentences.Find(x => x.situationID == currentSituationID);
             if (nextDs != null)
             {
-                nextButton.gameObject.SetActive(true);
                 SetCurrentDialogue(currentSituationID);
             }
         }

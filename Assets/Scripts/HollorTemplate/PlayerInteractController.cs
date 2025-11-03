@@ -17,7 +17,7 @@ public class PlayerInteractController : MonoBehaviour
     public Slider gaugeSlider;
     public float gaugeIncreaseRate = 20f;
     public DialogueManager dialogueManager; // インスペクターで割り当て
-
+    public GameOverEffect gameOverEffect;   // ゲームオーバーエフェクトコンポーネントへの参照
 
     private bool isInteracting = false;
     private bool isDoorOpen = false;
@@ -25,15 +25,11 @@ public class PlayerInteractController : MonoBehaviour
     private RaycastHit currentHit;
     private int cardboardCount = 0;
 
-    private GameOverEffect gameOverEffect;
-
     void Start()
     {
         DialogueManager dialogueManager = FindObjectOfType<DialogueManager>();
 
         gaugeUI.SetActive(false);
-
-        gameOverEffect = GameObject.Find("GameOverEffect").GetComponent<GameOverEffect>();
 
         if (gameOverEffect == null)
         {
@@ -202,7 +198,7 @@ public class PlayerInteractController : MonoBehaviour
                     isInteracting = false;
 
                     //ドアの効果音
-                    ///SoundManager.Instance.PlaySE3D(SESoundData.SE.DoorOpen, transform.position);
+                    //SoundManager.Instance.PlaySE3D(SESoundData.SE.DoorOpen, transform.position);
 
                     // Close the door if it's open
                     if (isDoorOpen)
@@ -231,6 +227,7 @@ public class PlayerInteractController : MonoBehaviour
                     if (GameManager.instance.currentDay == 2)
                     {
                         GameDirector.instance.Date2Game();  // 2Day:cardboard
+
                         // UI
                         PlayerPrefs.SetInt("SCORE", 2); // SCORE
                         PlayerPrefs.SetInt("BUTTON", 2);
@@ -256,6 +253,40 @@ public class PlayerInteractController : MonoBehaviour
                     }
 
                     if (GameManager.instance.currentDay == 5)
+                    {
+                        GameDirector.instance.Date5Game(); // 5Day:cardboard
+                        gameOverEffect.EnemyActive(false);
+
+                        // UI
+                        PlayerPrefs.SetInt("SCORE", 4); // SCORE
+                        PlayerPrefs.SetInt("BUTTON", 4);
+                        PlayerPrefs.SetInt("CLEAR", 0);
+                        PlayerPrefs.Save();
+                    }
+
+                    if (GameManager.instance.currentDay == 6)
+                    {
+                        GameDirector.instance.Date6Game(); // 6Day:cardboard
+
+                        // UI
+                        PlayerPrefs.SetInt("SCORE", 5); // SCORE
+                        PlayerPrefs.SetInt("BUTTON", 5);
+                        PlayerPrefs.SetInt("CLEAR", 0);
+                        PlayerPrefs.Save();
+                    }
+
+                    if (GameManager.instance.currentDay == 7)
+                    {
+                        GameDirector.instance.Date7Game(); // 7Day:cardboard
+
+                        // UI
+                        PlayerPrefs.SetInt("SCORE", 6); // SCORE
+                        PlayerPrefs.SetInt("BUTTON", 6);
+                        PlayerPrefs.SetInt("CLEAR", 1);
+                        PlayerPrefs.Save();
+                    }
+
+                    if (GameManager.instance.currentDay == 8)
                     {
                         yield break;
                     }

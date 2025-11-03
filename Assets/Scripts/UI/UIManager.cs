@@ -24,13 +24,11 @@ public class UIManager : MonoBehaviour
 
     public Button eventButton;
     public GameObject eventButtonPanel;
-    public GameObject eventEffectPanel;
 
     void Start()
     {
         eventButton.onClick.AddListener(OnEventButtonClicked);
         eventButtonPanel.gameObject.SetActive(false); // 初期状態では非表示
-        eventEffectPanel.gameObject.SetActive(false); // 初期状態では非表示
     }
 
     public void UpdateCardboardCount(int openedCount, int totalCount)
@@ -46,17 +44,19 @@ public class UIManager : MonoBehaviour
             if (!GameManager.instance.completedDays.Contains(currentDay))
             {
                 GameManager.instance.completedDays.Add(currentDay);
+                UpdateDayUI(currentDay);
             }
         }
         else
         {
-            //Debug.Log("まだ開けていない段ボールがある");
+            Debug.Log("まだ開けていない段ボールがある");
+            UpdateGameTimeUI(GameManager.instance.GetFormattedGameTime());
         }
     }
 
     public void UpdateDayUI(int currentDay)
     {
-        dayText.text = $"{currentDay}日目";
+        dayText.text = $"Day:{currentDay}";
         UpdateCardboardCount(0, 
             GameManager.instance.dayCardboardRequirements.ContainsKey(currentDay)
             ? GameManager.instance.dayCardboardRequirements[currentDay]
@@ -71,7 +71,6 @@ public class UIManager : MonoBehaviour
     public void ShowEventButton()
     {
         eventButtonPanel.gameObject.SetActive(true);
-        eventEffectPanel.gameObject.SetActive(true);
 
         if(eventButtonPanel.activeInHierarchy)
         {
@@ -85,7 +84,6 @@ public class UIManager : MonoBehaviour
     {
         EventManager.Instance.CompleteCurrentEvent();
         eventButtonPanel.gameObject.SetActive(false); // イベント完了後に非表示
-        eventEffectPanel.gameObject.SetActive(false);
 
         PlayerController.instance.isPlayerMoving = true;
         Cursor.lockState = CursorLockMode.Locked;

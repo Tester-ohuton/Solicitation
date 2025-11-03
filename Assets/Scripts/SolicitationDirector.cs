@@ -20,7 +20,7 @@ public class SolicitationDirector : MonoBehaviour
     [Header("DialogPanel")]
     [SerializeField] GameObject dialogPanel;
 
-    public KeyCode pressKey_2 = KeyCode.D;
+    public KeyCode pressKey_2 = KeyCode.Escape;
 
     private GameObject player;
     private PlayerController playerController;
