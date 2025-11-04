@@ -1,6 +1,9 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
+using UnityEngine.EventSystems;
+using System.Collections.Generic;
+using UnityEngine.Events;
 
 public class PlayerInteractController : MonoBehaviour
 {
@@ -31,13 +34,13 @@ public class PlayerInteractController : MonoBehaviour
 
         gaugeUI.SetActive(false);
 
-        if (gameOverEffect == null)
+        if (gameOverEffect != null)
         {
-            Debug.LogError("GameOverEffect component not found in the scene.");
+            gameOverEffect.EnemyActive(false);
         }
         else
         {
-            gameOverEffect.EnemyActive(false);
+            Debug.LogError("GameOverEffect component not found in the scene.");
         }
 
         // Update the UI with the current day and cardboard count
@@ -109,7 +112,7 @@ public class PlayerInteractController : MonoBehaviour
         }
         else
         {
-
+            Debug.LogWarning("Interactable object not found.");
         }
 
         isInteracting = true;
@@ -130,6 +133,12 @@ public class PlayerInteractController : MonoBehaviour
         {
             Debug.LogWarning("DoorController component not found on the door object.");
         }
+    }
+
+    private void OnApplicationPause(GameObject obj)
+    {
+        int index = obj.GetComponent<Cardboard>().index;
+        GameManager.instance.cardboardStates[index] = true;
     }
 
     /// <summary>
@@ -159,8 +168,7 @@ public class PlayerInteractController : MonoBehaviour
                     outline.enabled = false;
 
                     // Simulate changing cardboard state
-                    int index = obj.GetComponent<Cardboard>().index;
-                    GameManager.instance.cardboardStates[index] = true;
+                    OnApplicationPause(obj);
 
                     ItemGenerator itemGenerator = obj.GetComponent<ItemGenerator>();
                     itemGenerator.GenerateItem();
@@ -198,7 +206,7 @@ public class PlayerInteractController : MonoBehaviour
                     isInteracting = false;
 
                     //ドアの効果音
-                    //SoundManager.Instance.PlaySE3D(SESoundData.SE.DoorOpen, transform.position);
+                    SoundManager.Instance.PlaySE3D(SESoundData.SE.DoorOpen, transform.position);
 
                     // Close the door if it's open
                     if (isDoorOpen)

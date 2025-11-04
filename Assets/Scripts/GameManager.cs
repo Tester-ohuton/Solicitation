@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
     public bool isGameOver = false;
     public bool isCursor = true;
     public int totalDays = 7;
-    public List<int> completedDays = new List<int>() { 1, 2, 3, 4, 5, 6 };
+    public List<int> completedDays = new List<int>() { 1, 2, 3, 4, 5, 6, 7};
 
     public Dictionary<int, int> dayCardboardRequirements = new Dictionary<int, int>()
     {
@@ -61,24 +61,15 @@ public class GameManager : MonoBehaviour
             Debug.LogWarning("プレイヤーが見つかりません");
         }
 
-        cardboardStates = new bool[6]; // フラグ配列の初期化（6つのCardboard用）
+        cardboardStates = new bool[14]; // フラグ配列の初期化（14つのCardboard用）
         SetSaveFilePath();
-
 
         game = GameObject.Find("GameDirector");
 
         if (game != null)
         {
             gameDirector = game.GetComponent<GameDirector>();
-        }
-
-        if (gameDirector != null)
-        {
             gameDirector.Date1Game();
-        }
-        else
-        {
-            Debug.LogWarning("gameDirector is null");
         }
 
         StartNewGame();
@@ -216,6 +207,10 @@ public class GameManager : MonoBehaviour
         gameTime += TimeSpan.FromSeconds(deltaTime);
     }
 
+    /// <summary>
+    /// LoadGameTimeのフォーマットされた文字列を取得します
+    /// </summary>
+    /// <returns></returns>
     public string GetFormattedGameTime()
     {
         return gameTime.ToString(@"hh\:mm\:ss");
@@ -232,6 +227,11 @@ public class GameManager : MonoBehaviour
         }
         Debug.Log("All cardboards have been interacted with.");
         return true;
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveGame();
     }
 
     [System.Serializable]

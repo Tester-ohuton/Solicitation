@@ -35,13 +35,12 @@ public class GameDirector : MonoBehaviour
 
     private void Start()
     {
+        anomalyManager.ResetAnomalies();
         Date1Game();
     }
 
     public void Date1Game()
     {
-        anomalyManager.ResetAnomalies();
-
         for (int i = startRange1; i < endRange1; i++)
         {
             anomalyManager.TriggerAnomaly(i);
@@ -98,6 +97,7 @@ public class GameDirector : MonoBehaviour
 
     public void Retry()
     {
+        anomalyManager.ResetAnomalies();
         Date1Game();
     }
 }

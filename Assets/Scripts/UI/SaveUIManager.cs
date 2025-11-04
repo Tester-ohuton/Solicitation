@@ -5,10 +5,14 @@ using System.IO;
 
 public class SaveUIManager : MonoBehaviour
 {
-    public int stage_num; // スコア変数
+    public static int stage_num; // スコア変数
     public Button iti;
     public Button ni;
     public Button san;
+    public Button yon;
+    public Button goo;
+    public Button roku;
+    public Button continueButton;
 
     public Text[] timeText;
 
@@ -28,18 +32,13 @@ public class SaveUIManager : MonoBehaviour
 
         string thisSceneName = SceneManager.GetActiveScene().name;
 
-        ni.interactable = false;
-        san.interactable = false;
-
         iti.onClick.AddListener(() =>
         {
-            ni.interactable = true;
             ButtonPress(0);
         });
 
         ni.onClick.AddListener(() =>
         {
-            san.interactable = true;
             ButtonPress(1);
         });
 
@@ -47,11 +46,31 @@ public class SaveUIManager : MonoBehaviour
         {
             ButtonPress(2);
         });
+
+        yon.onClick.AddListener(() =>
+        {
+            ButtonPress(3);
+        });
+
+        goo.onClick.AddListener(() =>
+        {
+            ButtonPress(4);
+        });
+
+        roku.onClick.AddListener(() =>
+        {
+            ButtonPress(5);
+        });
+
+        continueButton.onClick.AddListener(() =>
+        {
+            ButtonPress(6);
+        });
     }
 
-    void ButtonPress(int i)
+    void ButtonPress(int point)
     {
-        timeText[i].text = GameManager.instance.GetFormattedGameTime();
+        timeText[point].text = GameManager.instance.GetFormattedGameTime();
     }
 
     void CheckForSaveData()

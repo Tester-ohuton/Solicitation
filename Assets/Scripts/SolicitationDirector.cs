@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class SolicitationDirector : MonoBehaviour
@@ -27,24 +29,18 @@ public class SolicitationDirector : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.Find("ChaM01_Player");
-
-        if (player != null)
-        {
-            playerController = player.GetComponent<PlayerController>();
-        }
-        else
-        {
-            Debug.Log("プレイヤーコントローラーが見つかりません");
-        }
-
         Time.timeScale = 1;
 
         StartGame();
     }
 
+    private void Update()
+    {
+        UpdateGame();
+    }
+
     // Method to update the game state
-    public void UpdateGame()
+    private void UpdateGame()
     {
         if (Input.GetKeyDown(pressKey_1))
         {
@@ -112,20 +108,25 @@ public class SolicitationDirector : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
-        if (playerController == null)
+        player = GameObject.Find("ChaM01_Player");
+
+        if (player != null)
         {
-            Debug.Log("Playerが見つかりません"); return;
-        }
-        else
-        {
+            playerController = player.GetComponent<PlayerController>();
+
             if (optionPanel.activeInHierarchy || dialogPanel.activeInHierarchy)
             {
                 playerController.isPlayerMoving = false;
             }
             else
             {
-                Debug.LogWarning("Windowは表示されていない");
+                playerController.isPlayerMoving = true;
+                Debug.LogWarning("PauseWindowは表示されていない");
             }
+        }
+        else
+        {
+            Debug.Log("プレイヤーコントローラーが見つかりません");
         }
 
         GameManager.instance.isGameOver = false;
