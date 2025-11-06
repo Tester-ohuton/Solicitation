@@ -26,7 +26,7 @@ public class PlayerInteractController : MonoBehaviour
     private float currentGauge = 0f;
     private RaycastHit currentHit;
     private int cardboardCount = 0;
-    private Cardboard cardboard;
+    private Cardboard2 cardboard2;
 
     void Start()
     {
@@ -40,9 +40,6 @@ public class PlayerInteractController : MonoBehaviour
         {
             Debug.LogError("GameOverEffect component not found in the scene.");
         }
-
-        // Update the UI with the current day and cardboard count
-        UpdateUI();
     }
 
     void Update()
@@ -134,20 +131,6 @@ public class PlayerInteractController : MonoBehaviour
     }
 
     /// <summary>
-    /// 段ボールが開けられた状態に更新
-    /// </summary>
-    /// <param name="obj"></param>
-    private void OnApplicationPause(GameObject obj)
-    {
-        cardboard = obj.GetComponent<Cardboard>();
-        if (cardboard != null)
-        {
-            cardboard.SetCardboardStatus(cardboardCount);
-            GameManager.instance.SaveCardboardStates(cardboard.GetCardboardStatus(), true);
-        }
-    }
-
-    /// <summary>
     /// Update the interaction gauge
     /// </summary>
     /// <returns></returns>
@@ -172,9 +155,6 @@ public class PlayerInteractController : MonoBehaviour
 
                     Outline outline = obj.GetComponent<Outline>();
                     outline.enabled = false;
-
-                    // Simulate changing cardboard state
-                    OnApplicationPause(obj);
 
                     ItemGenerator itemGenerator = obj.GetComponent<ItemGenerator>();
                     itemGenerator.GenerateItem();
@@ -235,7 +215,6 @@ public class PlayerInteractController : MonoBehaviour
 
                     yield return new WaitForSeconds(3f);
 
-                    // ShowSavePanel
                     ShowSavePanel();
 
                     if (GameManager.instance.currentDay == 2)
@@ -327,7 +306,7 @@ public class PlayerInteractController : MonoBehaviour
         gaugeSlider.value = currentGauge;
     }
 
-    void UpdateUI()
+    public void UpdateUI()
     {
         int totalCardboards = 
             GameManager.instance.dayCardboardRequirements.ContainsKey(GameManager.instance.currentDay)

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &265579051786428888
+--- !u!1 &8876611563784143934
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,48 +8,78 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 4360465563033291363}
-  - component: {fileID: 6091588871618432421}
-  - component: {fileID: 9064782066846687691}
-  - component: {fileID: 3275369627833185404}
-  - component: {fileID: 4527944291632674687}
-  - component: {fileID: 6333716933031298346}
+  - component: {fileID: 400448369991802828}
+  - component: {fileID: 5155766236237255080}
+  - component: {fileID: 4597275878983378567}
+  - component: {fileID: 6150485880725910464}
+  - component: {fileID: 4457479497556352606}
   m_Layer: 0
-  m_Name: Music
+  m_Name: SoundManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4360465563033291363
+--- !u!4 &400448369991802828
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 265579051786428888}
+  m_GameObject: {fileID: 8876611563784143934}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!82 &6091588871618432421
+--- !u!114 &5155766236237255080
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8876611563784143934}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95efe1d7737c2574593b71991949a8e4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmAudioSource: {fileID: 4597275878983378567}
+  seAudioSource: {fileID: 6150485880725910464}
+  bgmSoundDatas:
+  - bgm: 0
+    audioClip: {fileID: 8300000, guid: 8b15d50d259884e448d96e23abd1503f, type: 3}
+    volume: 0.437
+  - bgm: 1
+    audioClip: {fileID: 8300000, guid: 4c7c5eb4c788af44d962874957c185cc, type: 3}
+    volume: 0.437
+  seSoundDatas:
+  - se: 5
+    audioClip: {fileID: 8300000, guid: d5ed7ce369309604cab864f43999bf38, type: 3}
+    volume: 0.45
+  - se: 8
+    audioClip: {fileID: 8300000, guid: d5ed7ce369309604cab864f43999bf38, type: 3}
+    volume: 0.45
+  masterVolume: 1
+  bgmMasterVolume: 1
+  seMasterVolume: 1
+--- !u!82 &4597275878983378567
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 265579051786428888}
+  m_GameObject: {fileID: 8876611563784143934}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: -7872165849517114314, guid: 925286ccbdf0b5246b54bb4a90cbe693,
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.214
+  m_Volume: 1
   m_Pitch: 1
   Loop: 1
   Mute: 0
@@ -133,20 +163,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!82 &9064782066846687691
+--- !u!82 &6150485880725910464
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 265579051786428888}
+  m_GameObject: {fileID: 8876611563784143934}
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 9098274433902952818, guid: 925286ccbdf0b5246b54bb4a90cbe693,
     type: 2}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 0
-  m_Volume: 0.209
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -230,60 +260,13 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &3275369627833185404
+--- !u!114 &4457479497556352606
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 265579051786428888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 95efe1d7737c2574593b71991949a8e4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bgmAudioSource: {fileID: 6091588871618432421}
-  seAudioSource: {fileID: 9064782066846687691}
-  bgmSoundDatas:
-  - bgm: 0
-    audioClip: {fileID: 8300000, guid: 8b15d50d259884e448d96e23abd1503f, type: 3}
-    volume: 0.212
-  - bgm: 1
-    audioClip: {fileID: 8300000, guid: 4c7c5eb4c788af44d962874957c185cc, type: 3}
-    volume: 0.2
-  seSoundDatas:
-  - se: 0
-    audioClip: {fileID: 8300000, guid: 37f54937c5edb1d4484b660d1954ec12, type: 3}
-    volume: 0.2
-  - se: 2
-    audioClip: {fileID: 8300000, guid: d5ed7ce369309604cab864f43999bf38, type: 3}
-    volume: 0.2
-  masterVolume: 1
-  bgmMasterVolume: 1
-  seMasterVolume: 1
---- !u!114 &4527944291632674687
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 265579051786428888}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4216f7819fb0e5940ae2dd03cfeef555, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  audioMixer: {fileID: 24100000, guid: 925286ccbdf0b5246b54bb4a90cbe693, type: 2}
-  seAudioSource: {fileID: 9064782066846687691}
-  bgmAudioSource: {fileID: 6091588871618432421}
-  volumeSlider: {fileID: 0}
---- !u!114 &6333716933031298346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 265579051786428888}
+  m_GameObject: {fileID: 8876611563784143934}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bebf0a8e8791e6d45aed661f9907865f, type: 3}
@@ -293,3 +276,4 @@ MonoBehaviour:
   gameBGM: 1
   isTitle: 0
   isGame: 1
+  isResult: 0

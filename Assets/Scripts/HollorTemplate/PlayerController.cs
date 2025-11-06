@@ -70,7 +70,6 @@ public class PlayerController : MonoBehaviour
         }
 
         GameManager.instance.UpdateGameTime(Time.deltaTime);
-        UIManager.instance.UpdateGameTimeUI(GameManager.instance.GetFormattedGameTime());
 
         ActorMove();
         Rotate();

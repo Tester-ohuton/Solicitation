@@ -117,8 +117,6 @@ public class GameManager : MonoBehaviour
         isGameOver = false;
         isCursor = true;
 
-        DeleteSaveData();
-        SaveGame();
         LoadGame();
         ResetPlayerPos();
     }
@@ -275,6 +273,7 @@ public class GameManager : MonoBehaviour
     private void OnApplicationQuit()
     {
         SaveGame();
+        Application.Quit();
     }
 
     [System.Serializable]

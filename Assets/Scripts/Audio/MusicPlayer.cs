@@ -7,6 +7,7 @@ public class MusicPlayer : MonoBehaviour
 
     public bool isTitle;
     public bool isGame;
+    public bool isResult;
 
     void Start()
     {
@@ -17,6 +18,10 @@ public class MusicPlayer : MonoBehaviour
         else if (isGame)
         {
             SoundManager.Instance.PlayBGM(gameBGM);
+        }
+        else if (isResult)
+        {
+            SoundManager.Instance.PlayBGM(titleBGM);
         }
     }
 }
