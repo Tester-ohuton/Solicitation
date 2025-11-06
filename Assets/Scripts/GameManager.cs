@@ -52,6 +52,20 @@ public class GameManager : MonoBehaviour
 
     private string saveFilePath;
 
+    public bool SaveCardboardStates(int index, bool state)
+    {
+        if (index >= 0 && index < cardboardStates.Length)
+        {
+            cardboardStates[index] = state;
+            return true;
+        }
+        else
+        {
+            Debug.LogWarning("Invalid cardboard index: " + index);
+            return false;
+        }
+    }
+
     private void Start()
     {
         player = GameObject.Find("ChaM01_Player");
@@ -138,6 +152,31 @@ public class GameManager : MonoBehaviour
         return currentDay;
     }
 
+    public int TotalDays()
+    {
+        return totalDays;
+    }
+
+    public bool GetIsCleared()
+    {
+        return isCleared;
+    }
+
+    public void SetIsCleared(bool cleared)
+    {
+        isCleared = cleared;
+    }
+
+    public bool GetIsGameOver()
+    {
+        return isGameOver;
+    }
+
+    public void SetIsGameOver(bool gameOver)
+    {
+        isGameOver = gameOver;
+    }
+
     public void SaveGame()
     {
         SaveData saveData = new SaveData
@@ -216,6 +255,10 @@ public class GameManager : MonoBehaviour
         return gameTime.ToString(@"hh\:mm\:ss");
     }
 
+    /// <summary>
+    /// GameClearの条件を満たしているか確認します
+    /// </summary>
+    /// <returns></returns>
     public bool AreAllCardboardsInteracted()
     {
         foreach (bool state in cardboardStates)

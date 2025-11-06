@@ -1,7 +1,6 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.EventSystems;
 using System.Collections.Generic;
 using UnityEngine.Events;
 
@@ -27,11 +26,10 @@ public class PlayerInteractController : MonoBehaviour
     private float currentGauge = 0f;
     private RaycastHit currentHit;
     private int cardboardCount = 0;
+    private Cardboard cardboard;
 
     void Start()
     {
-        DialogueManager dialogueManager = FindObjectOfType<DialogueManager>();
-
         gaugeUI.SetActive(false);
 
         if (gameOverEffect != null)
@@ -135,10 +133,18 @@ public class PlayerInteractController : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// 段ボールが開けられた状態に更新
+    /// </summary>
+    /// <param name="obj"></param>
     private void OnApplicationPause(GameObject obj)
     {
-        int index = obj.GetComponent<Cardboard>().index;
-        GameManager.instance.cardboardStates[index] = true;
+        cardboard = obj.GetComponent<Cardboard>();
+        if (cardboard != null)
+        {
+            cardboard.SetCardboardStatus(cardboardCount);
+            GameManager.instance.SaveCardboardStates(cardboard.GetCardboardStatus(), true);
+        }
     }
 
     /// <summary>
@@ -285,7 +291,7 @@ public class PlayerInteractController : MonoBehaviour
 
                     if (GameManager.instance.currentDay == 7)
                     {
-                        GameDirector.instance.Date7Game(); // 7Day:cardboard
+                        GameDirector.instance.Date7Game(); // 6Day:cardboard
 
                         // UI
                         PlayerPrefs.SetInt("SCORE", 6); // SCORE
@@ -296,6 +302,8 @@ public class PlayerInteractController : MonoBehaviour
 
                     if (GameManager.instance.currentDay == 8)
                     {
+                        GameManager.instance.SetIsGameOver(true);
+                        GameManager.instance.currentDay = 1; // Reset to Day 1 or handle end game
                         yield break;
                     }
 

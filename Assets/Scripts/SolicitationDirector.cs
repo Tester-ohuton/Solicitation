@@ -36,6 +36,7 @@ public class SolicitationDirector : MonoBehaviour
 
     private void Update()
     {
+        StartGame();
         UpdateGame();
     }
 

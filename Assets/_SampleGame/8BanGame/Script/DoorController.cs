@@ -5,7 +5,6 @@ public class DoorController : MonoBehaviour
 {
     public bool isOpened;
     public int ID;
-    public GameObject doorObj;
 
     private Animator animator;
 
@@ -29,8 +28,6 @@ public class DoorController : MonoBehaviour
     public void OpenDoorAnimation()
     {
         animator.SetBool("openAnim", true);
-
-        doorObj.SetActive(false);
         isOpened = true;
         ShowButtonUI();
     }
@@ -38,7 +35,7 @@ public class DoorController : MonoBehaviour
     public void CloseDoorAnimation()
     {
         animator.SetBool("openAnim", false);
-        doorObj.SetActive(true);
+        isOpened = false;
     }
 
     private void ShowButtonUI()
