@@ -14,6 +14,10 @@ public class GameManager : MonoBehaviour
         {
             instance = this;
         }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     [TextArea]
@@ -270,7 +274,7 @@ public class GameManager : MonoBehaviour
         return true;
     }
 
-    private void OnApplicationQuit()
+    public void OnApplicationQuit()
     {
         SaveGame();
         Application.Quit();

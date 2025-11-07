@@ -1,8 +1,8 @@
 using System.Collections;
-using UnityEngine;
-using UnityEngine.UI;
 using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 public class PlayerInteractController : MonoBehaviour
 {
@@ -78,7 +78,14 @@ public class PlayerInteractController : MonoBehaviour
             }
             else if (hit.collider.CompareTag(doorTag))
             {
-                HandleSimpleInteraction(hit);
+                if (Input.GetKeyDown(interactKey) && !isDoorOpen)
+                {
+                    HandleSimpleInteraction();
+                    
+                    isDoorOpen = true;
+                }
+
+                DoorController.OnDoorCloseAnimation.Invoke();
                 isDoorOpen = false;
             }
         }
@@ -116,18 +123,12 @@ public class PlayerInteractController : MonoBehaviour
     /// <summary>
     /// Handle simple interactions like doors
     /// </summary>
-    /// <param name="hit"></param>
-    void HandleSimpleInteraction(RaycastHit hit)
+    void HandleSimpleInteraction()
     {
-        DoorController animator = hit.collider.gameObject.GetComponentInChildren<DoorController>();
-        if (animator != null)
-        {
-            animator.OpenDoorAnimation();
-        }
-        else
-        {
-            Debug.LogWarning("DoorController component not found on the door object.");
-        }
+        DoorController.OnDoorOpenAnimation.Invoke();
+
+        // Play door opening sound
+        SoundManager.Instance.PlaySE3D(SESoundData.SE.DoorOpen, transform.position);
     }
 
     /// <summary>

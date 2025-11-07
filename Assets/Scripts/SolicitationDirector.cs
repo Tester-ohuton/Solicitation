@@ -12,6 +12,10 @@ public class SolicitationDirector : MonoBehaviour
         {
             instance = this;
         }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 
     [Header("OptionPanel")]
@@ -23,6 +27,14 @@ public class SolicitationDirector : MonoBehaviour
     [SerializeField] GameObject dialogPanel;
 
     public KeyCode pressKey_2 = KeyCode.Escape;
+
+    [Header("EventPanel")]
+    [SerializeField] GameObject eventPanel;
+
+    public KeyCode pressKey_3 = KeyCode.F;
+
+    [Header("SavePanel")]
+    [SerializeField] GameObject savePanel;
 
     private GameObject player;
     private PlayerController playerController;
@@ -51,6 +63,16 @@ public class SolicitationDirector : MonoBehaviour
         if (Input.GetKeyDown(pressKey_2))
         {
             Dialog(); // DialogWindow Window true/false
+        }
+
+        if (Input.GetKeyDown(pressKey_3))
+        {
+            EventWindow(); // EventWindow Window true/false
+        }
+
+        if(Input.GetKeyDown(KeyCode.F5))
+        {
+            savePanel.SetActive(!savePanel.activeSelf);
         }
     }
 
@@ -104,6 +126,29 @@ public class SolicitationDirector : MonoBehaviour
         }
     }
 
+    void EventWindow()
+    {
+        if (playerController == null)
+        {
+            Debug.Log("Playerが見つかりません");
+        }
+        else
+        {
+            playerController.isPlayerMoving = false;
+        }
+
+        eventPanel.SetActive(!eventPanel.activeSelf);
+
+        if (!eventPanel.activeInHierarchy)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
+
     /// <summary>
     /// プレイヤーが探索したり動くことができる時間
     /// </summary>
@@ -115,7 +160,7 @@ public class SolicitationDirector : MonoBehaviour
         {
             playerController = player.GetComponent<PlayerController>();
 
-            if (optionPanel.activeInHierarchy || dialogPanel.activeInHierarchy)
+            if (optionPanel.activeInHierarchy || dialogPanel.activeInHierarchy || eventPanel.activeInHierarchy)
             {
                 playerController.isPlayerMoving = false;
             }

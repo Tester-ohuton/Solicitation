@@ -8,20 +8,25 @@ public class DoorController : MonoBehaviour
 
     private Animator animator;
 
+    public static UnityEvent OnDoorOpenAnimation = new UnityEvent();
     public static UnityEvent OnDoorCloseAnimation = new UnityEvent();
 
-    private void Awake()
+    private void Start()
     {
         OnDoorCloseAnimation.RemoveAllListeners();
+        OnDoorOpenAnimation.RemoveAllListeners();
 
         OnDoorCloseAnimation.AddListener(() =>
         {
             CloseDoorAnimation();
         });
-    }
 
-    private void Start()
-    {
+
+        OnDoorOpenAnimation.AddListener(() =>
+        {
+            OpenDoorAnimation();
+        });
+
         animator = GetComponentInParent<Animator>();
     }
 
@@ -29,6 +34,7 @@ public class DoorController : MonoBehaviour
     {
         animator.SetBool("openAnim", true);
         isOpened = true;
+        gameObject.SetActive(false);
         ShowButtonUI();
     }
 
@@ -36,6 +42,7 @@ public class DoorController : MonoBehaviour
     {
         animator.SetBool("openAnim", false);
         isOpened = false;
+        gameObject.SetActive(true);
     }
 
     private void ShowButtonUI()

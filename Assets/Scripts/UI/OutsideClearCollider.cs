@@ -10,7 +10,10 @@ public class OutsideClearCollider : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            clearEffect.PlayClearEffect();
+            if (GameManager.instance.AreAllCardboardsInteracted())
+            {
+                clearEffect.PlayClearEffect();
+            }
         }
     }
 }
