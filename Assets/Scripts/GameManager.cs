@@ -132,7 +132,6 @@ public class GameManager : MonoBehaviour
         isCursor = true;
 
         LoadGame();
-        ResetPlayerPos();
     }
     
     // Delete the save file if it exists

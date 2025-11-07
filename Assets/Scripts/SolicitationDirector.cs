@@ -53,25 +53,7 @@ public class SolicitationDirector : MonoBehaviour
     /// </summary>
     public void OptionKeyPress()
     {
-        if (playerController == null)
-        {
-            Debug.Log("Playerが見つかりません");
-        }
-        else
-        {
-            playerController.isPlayerMoving = false;
-        }
-        
         optionPanel.SetActive(!optionPanel.activeSelf);
-
-        if (!optionPanel.activeInHierarchy)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.None; 
-        }
     }
 
     /// <summary>
