@@ -23,19 +23,6 @@ public class SolicitationDirector : MonoBehaviour
 
     public KeyCode pressKey_1 = KeyCode.Tab;
 
-    [Header("DialogPanel")]
-    [SerializeField] GameObject dialogPanel;
-
-    public KeyCode pressKey_2 = KeyCode.Escape;
-
-    [Header("EventPanel")]
-    [SerializeField] GameObject eventPanel;
-
-    public KeyCode pressKey_3 = KeyCode.F;
-
-    [Header("SavePanel")]
-    [SerializeField] GameObject savePanel;
-
     private GameObject player;
     private PlayerController playerController;
 
@@ -59,23 +46,11 @@ public class SolicitationDirector : MonoBehaviour
         {
             OptionKeyPress(); // Option Window true/false
         }
-
-        if (Input.GetKeyDown(pressKey_2))
-        {
-            Dialog(); // DialogWindow Window true/false
-        }
-
-        if (Input.GetKeyDown(pressKey_3))
-        {
-            EventWindow(); // EventWindow Window true/false
-        }
-
-        if(Input.GetKeyDown(KeyCode.F5))
-        {
-            savePanel.SetActive(!savePanel.activeSelf);
-        }
     }
 
+    /// <summary>
+    /// まとめてオプションパネルを開く/閉じる
+    /// </summary>
     public void OptionKeyPress()
     {
         if (playerController == null)
@@ -100,56 +75,6 @@ public class SolicitationDirector : MonoBehaviour
     }
 
     /// <summary>
-    /// 会話パートで時間が止まる,DialogWindow表示
-    /// 探索から始まる,必要に応じてDialogWindow非表示
-    /// </summary>
-    public void Dialog()
-    {
-        if (playerController == null)
-        {
-            Debug.Log("Playerが見つかりません");
-        }
-        else
-        {
-            playerController.isPlayerMoving = false;
-        }
-
-        dialogPanel.SetActive(!dialogPanel.activeSelf);
-
-        if (!dialogPanel.activeInHierarchy)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.None;
-        }
-    }
-
-    void EventWindow()
-    {
-        if (playerController == null)
-        {
-            Debug.Log("Playerが見つかりません");
-        }
-        else
-        {
-            playerController.isPlayerMoving = false;
-        }
-
-        eventPanel.SetActive(!eventPanel.activeSelf);
-
-        if (!eventPanel.activeInHierarchy)
-        {
-            Cursor.lockState = CursorLockMode.Locked;
-        }
-        else
-        {
-            Cursor.lockState = CursorLockMode.None;
-        }
-    }
-
-    /// <summary>
     /// プレイヤーが探索したり動くことができる時間
     /// </summary>
     public void StartGame()
@@ -160,7 +85,7 @@ public class SolicitationDirector : MonoBehaviour
         {
             playerController = player.GetComponent<PlayerController>();
 
-            if (optionPanel.activeInHierarchy || dialogPanel.activeInHierarchy || eventPanel.activeInHierarchy)
+            if (optionPanel.activeInHierarchy)
             {
                 playerController.isPlayerMoving = false;
             }

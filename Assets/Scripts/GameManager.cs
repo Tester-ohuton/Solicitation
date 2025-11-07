@@ -56,6 +56,16 @@ public class GameManager : MonoBehaviour
 
     private string saveFilePath;
 
+    /// <summary>
+    /// ダンボールオブジェクトの状態を保存します。
+    /// 例：それぞれのダンボールがプレイヤーに取得されたか・開封済みか等のbool（true=取得済み/開封済み）状態を記録できます。
+    /// 
+    /// - index: 保存したいダンボールの番号（配列のインデックス）
+    /// - state: 記録したい状態（true: 有効/取得済み/開封、false: 無効/未取得/未開封）
+    /// 
+    /// 戻り値: 保存に成功した場合はtrue、インデックスが範囲外の場合はfalseを返します。
+    /// </summary>
+    // Save the interaction state of a cardboard object
     public bool SaveCardboardStates(int index, bool state)
     {
         if (index >= 0 && index < cardboardStates.Length)

@@ -108,8 +108,6 @@ public class DialogSystemManager : MonoBehaviour
 
     public void EndDialog()
     {
-        SolicitationDirector.instance.Dialog();
-
         PlayerController.instance.isPlayerMoving = true;
     }
 }

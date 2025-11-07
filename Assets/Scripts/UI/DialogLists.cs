@@ -84,7 +84,6 @@ public class DialogLists : MonoBehaviour
 
                     if (itemScript.isOK)
                     {
-                        SolicitationDirector.instance.Dialog();
                         isCardboardDialogStarted = true;
                     }
                     else
@@ -116,10 +115,6 @@ public class DialogLists : MonoBehaviour
             if (hit.collider.CompareTag(satoTag) && !isSatoDialogStarted)
             {
                 isSatoDialogStarted = true;
-            }
-            else
-            {
-                SolicitationDirector.instance.Dialog();
             }
         }
     }
