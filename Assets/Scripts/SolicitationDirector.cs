@@ -35,25 +35,7 @@ public class SolicitationDirector : MonoBehaviour
 
     private void Update()
     {
-        StartGame();
         UpdateGame();
-    }
-
-    // Method to update the game state
-    private void UpdateGame()
-    {
-        if (Input.GetKeyDown(pressKey_1))
-        {
-            OptionKeyPress(); // Option Window true/false
-        }
-    }
-
-    /// <summary>
-    /// まとめてオプションパネルを開く/閉じる
-    /// </summary>
-    public void OptionKeyPress()
-    {
-        optionPanel.SetActive(!optionPanel.activeSelf);
     }
 
     /// <summary>
@@ -66,16 +48,6 @@ public class SolicitationDirector : MonoBehaviour
         if (player != null)
         {
             playerController = player.GetComponent<PlayerController>();
-
-            if (optionPanel.activeInHierarchy)
-            {
-                playerController.isPlayerMoving = false;
-            }
-            else
-            {
-                playerController.isPlayerMoving = true;
-                Debug.LogWarning("PauseWindowは表示されていない");
-            }
         }
         else
         {
@@ -83,5 +55,28 @@ public class SolicitationDirector : MonoBehaviour
         }
 
         GameManager.instance.isGameOver = false;
+        GameManager.instance.isCleared = false;
+    }
+
+
+    /// <summary>
+    /// プレイヤーを動かす
+    /// </summary>
+    private void UpdateGame()
+    {
+        if (Input.GetKeyDown(pressKey_1))
+        {
+            optionPanel.SetActive(!optionPanel.activeSelf);
+        }
+
+        if (optionPanel.activeInHierarchy)
+        {
+            playerController.isPlayerMoving = false;
+        }
+        else
+        {
+            playerController.isPlayerMoving = true;
+            Debug.LogWarning("PauseWindowは表示されていない");
+        }
     }
 }

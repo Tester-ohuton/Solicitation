@@ -80,7 +80,6 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            Debug.Log("まだ開けていない段ボールがある");
             if (GameManager.instance != null)
                 UpdateGameTimeUI(GameManager.instance.GetFormattedGameTime());
         }

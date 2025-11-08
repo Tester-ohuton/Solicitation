@@ -13,10 +13,4 @@ public class Cardboard : MonoBehaviour
     {
         return indexFlag;
     }
-
-    public void OnMouseDown()
-    {
-        Debug.Log("Cardboard " + indexFlag + " clicked!");
-        // Add additional logic for when the cardboard is clicked
-    }
 }
