@@ -18,11 +18,7 @@ public class PlayerController : MonoBehaviour
 
     public float moveSpeed = 5f;
     public float turnSpeed = 720f;
-
-    public float sensitivity = 0.1f;
-    public float mouseSensitivity = 1f;    //マウス感度
-    public Slider mouseSlider;
-
+    
     [Header("Crouch Settings")]
     public float crouchHeight = 1.0f;
 
@@ -38,28 +34,17 @@ public class PlayerController : MonoBehaviour
     private Vector3 velocity;
     private CapsuleCollider capsuleCollider;
     private float originalHeight;
-    private float verticalRotation = 0.0f;
+    [SerializeField] private MouseTest mouse;
 
     void Start()
     {
-        mouseSensitivity = GameManager.instance.mouseSensitivity;
-
-        if (mouseSlider == null) return;
-
-        mouseSlider.value = mouseSensitivity;
-
-        mouseSlider.onValueChanged.AddListener((value) =>
-        {
-            SetMouseSencitivity(value);
-        });
-
         rb = GetComponent<Rigidbody>();
         capsuleCollider = GetComponent<CapsuleCollider>();
         originalHeight = capsuleCollider.height;
 
         // Set player position based on saved data
-        transform.position = GameManager.instance.playerPosition;
-        rb.position = GameManager.instance.playerPosition;
+        transform.position = GameManager.instance.playerPosition[0].transform.position;
+        rb.position = GameManager.instance.playerPosition[0].transform.position;
     }
 
     void Update()
@@ -89,7 +74,7 @@ public class PlayerController : MonoBehaviour
         transform.Translate(moveHorizontal, 0, moveVertical);
 
         // Save the player position to GameManager
-        GameManager.instance.playerPosition = transform.position;
+        GameManager.instance.playerPosition[0].transform.position = transform.position;
     }
 
     /// <summary>
@@ -98,7 +83,8 @@ public class PlayerController : MonoBehaviour
     void Rotate()
     {
         //マウス視点操作
-        float rotateHorizontal = Input.GetAxis("Mouse X") * sensitivity * mouseSensitivity;
+        float rotateHorizontal = Input.GetAxis("Mouse X") * mouse.GetMouseSensitivity();
+
         transform.Rotate(0, rotateHorizontal, 0);
     }
 
@@ -126,14 +112,5 @@ public class PlayerController : MonoBehaviour
             capsuleCollider.height = originalHeight;
             capsuleCollider.center = new Vector3(capsuleCollider.center.x, originalHeight / 2, capsuleCollider.center.z);
         }
-    }
-
-    /// <summary>
-    /// マウス感度を設定
-    /// </summary>
-    /// <param name="intensity"></param>
-    public void SetMouseSencitivity(float intensity)
-    {
-        mouseSensitivity = intensity;
     }
 }

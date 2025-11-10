@@ -34,7 +34,6 @@ public class DoorController : MonoBehaviour
     {
         animator.SetBool("openAnim", true);
         isOpened = true;
-        gameObject.SetActive(false);
         ShowButtonUI();
     }
 
@@ -42,7 +41,6 @@ public class DoorController : MonoBehaviour
     {
         animator.SetBool("openAnim", false);
         isOpened = false;
-        gameObject.SetActive(true);
     }
 
     private void ShowButtonUI()

@@ -3,7 +3,7 @@ using UnityEngine;
 public class TriggerFlag : MonoBehaviour
 {
     // This flag will be true when the player is inside the trigger, false otherwise
-    public bool isPlayerInside = false;
+    private bool isPlayerInside = false;
 
     void OnTriggerEnter(Collider other)
     {

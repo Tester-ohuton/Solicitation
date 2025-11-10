@@ -54,11 +54,6 @@ public class PlayerInteractController : MonoBehaviour
         {
             ResetGauge();
         }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            isDoorOpen = true;
-        }
     }
 
     /// <summary>
@@ -78,15 +73,18 @@ public class PlayerInteractController : MonoBehaviour
             }
             else if (hit.collider.CompareTag(doorTag))
             {
-                if (Input.GetKeyDown(interactKey) && !isDoorOpen)
+                if (Input.GetKeyDown(KeyCode.F) && !isDoorOpen)
                 {
                     HandleSimpleInteraction();
                     
                     isDoorOpen = true;
                 }
 
-                DoorController.OnDoorCloseAnimation.Invoke();
-                isDoorOpen = false;
+                if(isDoorOpen && (Input.GetKeyDown(KeyCode.C)))
+                {
+                    DoorController.OnDoorCloseAnimation.Invoke();
+                    isDoorOpen = false;
+                }
             }
         }
         else

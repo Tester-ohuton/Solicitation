@@ -23,8 +23,8 @@ public class GameManager : MonoBehaviour
     [TextArea]
     public string text;
 
-    public Vector3 initialPlayerPosition;
-    public Vector3 playerPosition;
+    public GameObject initialPlayerPosition;
+    public GameObject[] playerPosition;
     public bool[] cardboardStates;
     public float volume;
     public float brightness;
@@ -101,6 +101,7 @@ public class GameManager : MonoBehaviour
         }
 
         StartNewGame();
+
     }
 
     private void SetSaveFilePath()
@@ -119,7 +120,7 @@ public class GameManager : MonoBehaviour
 
     public void StartNewGame()
     {
-        playerPosition = initialPlayerPosition;
+        initialPlayerPosition.transform.position = playerPosition[0].transform.position;
         cardboardStates = new bool[cardboardStates.Length]; // フラグ配列の初期化
         volume = 1.0f;
         brightness = 1.0f;
@@ -155,7 +156,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetPlayerPos()
     {
-        player.transform.position = playerPosition;
+        player.transform.position = playerPosition[0].transform.position;
     }
 
     public int Day()
@@ -226,7 +227,7 @@ public class GameManager : MonoBehaviour
                 string json = File.ReadAllText(saveFilePath);
                 SaveData saveData = JsonUtility.FromJson<SaveData>(json);
 
-                playerPosition = saveData.playerPosition;
+                playerPosition[0].transform.position = saveData.playerPosition;
                 cardboardStates = saveData.cardboardStates;
                 volume = saveData.volume;
                 brightness = saveData.brightness;
@@ -237,7 +238,7 @@ public class GameManager : MonoBehaviour
                 isCleared = saveData.isCleared;
                 isGameOver = saveData.isGameOver;
 
-                player.transform.position = playerPosition;
+                player.transform.position = playerPosition[0].transform.position;
 
                 Debug.Log("ファイルの場所: " + saveFilePath);
             }

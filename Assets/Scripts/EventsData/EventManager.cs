@@ -102,6 +102,8 @@ public class EventManager : MonoBehaviour
                 gameEvent.CompleteEvent();
                 // イベントが完了したら、その説明を文字送りで表示し、
                 // 文字送りが完了したタイミングで UI を閉じ、続けて次のイベントへ進める
+
+                // リストのインデックスごとに表示非表示を切り替える
                 StartCoroutine(HandleEventCompletionAndAdvance(gameEvent));
             }
         }
@@ -126,8 +128,8 @@ public class EventManager : MonoBehaviour
             }
         }
 
-        // 次のイベントがあれば開始する（StartNextEvent は必要に応じて UI を再表示する）
-        StartNextEvent();
+        //// 次のイベントがあれば開始する（StartNextEvent は必要に応じて UI を再表示する）
+        //StartNextEvent();
     }
 
     private void UpdateDayDescription()
@@ -203,6 +205,12 @@ public class EventManager : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
         {
             CompleteCurrentEvent();
+        }
+
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            // 次のイベントがあれば開始する（StartNextEvent は必要に応じて UI を再表示する）
+            StartNextEvent();
         }
     }
 }
