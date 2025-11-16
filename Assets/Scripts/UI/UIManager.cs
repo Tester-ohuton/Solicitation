@@ -152,8 +152,6 @@ public class UIManager : MonoBehaviour
 
     private void OnEventButtonClicked()
     {
-        EventManager.Instance.CompleteCurrentEvent();
-
         if (eventButtonPanel != null)
             eventButtonPanel.SetActive(false);
 

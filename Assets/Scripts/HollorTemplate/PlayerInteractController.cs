@@ -14,7 +14,6 @@ public class PlayerInteractController : MonoBehaviour
     public KeyCode interactKey = KeyCode.E;
     public string interactTag = "Cardboard";
     public string doorTag = "Door";
-    public string entranceTag = "Entrance";
     public GameObject gaugeUI;
     public Slider gaugeSlider;
     public float gaugeIncreaseRate = 20f;
@@ -22,7 +21,6 @@ public class PlayerInteractController : MonoBehaviour
     public GameOverEffect gameOverEffect;   // ゲームオーバーエフェクトコンポーネントへの参照
 
     private bool isInteracting = false;
-    private bool isDoorOpen = false;
     private float currentGauge = 0f;
     private RaycastHit currentHit;
     private int cardboardCount = 0;
@@ -73,17 +71,14 @@ public class PlayerInteractController : MonoBehaviour
             }
             else if (hit.collider.CompareTag(doorTag))
             {
-                if (Input.GetKeyDown(KeyCode.F) && !isDoorOpen)
+                if (Input.GetKeyDown(KeyCode.Space))
                 {
                     HandleSimpleInteraction();
-                    
-                    isDoorOpen = true;
                 }
 
-                if(isDoorOpen && (Input.GetKeyDown(KeyCode.C)))
+                if(Input.GetKeyDown(KeyCode.C))
                 {
                     DoorController.OnDoorCloseAnimation.Invoke();
-                    isDoorOpen = false;
                 }
             }
         }
@@ -194,22 +189,14 @@ public class PlayerInteractController : MonoBehaviour
                     SoundManager.Instance.PlaySE3D(SESoundData.SE.DoorOpen, transform.position);
 
                     // Close the door if it's open
-                    if (isDoorOpen)
+                    Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+                    RaycastHit hit;
+                    if (Physics.Raycast(ray, out hit, interactRange, interactableLayer))
                     {
-                        Ray ray = Camera.main.ScreenPointToRay(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-                        RaycastHit hit;
-                        if (Physics.Raycast(ray, out hit, interactRange, interactableLayer))
+                        if (hit.collider.CompareTag(doorTag))
                         {
-                            if (hit.collider.CompareTag(doorTag))
-                            {
-                                DoorController animator = hit.collider.gameObject.GetComponentInChildren<DoorController>();
-                                if (animator != null)
-                                {
-                                    DoorController.OnDoorCloseAnimation.Invoke();
-                                }
-                            }
+                            DoorController.OnDoorOpenAnimation.Invoke();
                         }
-                        isDoorOpen = false;
                     }
 
                     yield return new WaitForSeconds(3f);

@@ -3,7 +3,6 @@ using UnityEngine.Events;
 
 public class DoorController : MonoBehaviour
 {
-    public bool isOpened;
     public int ID;
 
     private Animator animator;
@@ -30,17 +29,23 @@ public class DoorController : MonoBehaviour
         animator = GetComponentInParent<Animator>();
     }
 
+    void Update()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            OnDoorOpenAnimation.Invoke();
+        }
+    }
+
     public void OpenDoorAnimation()
     {
         animator.SetBool("openAnim", true);
-        isOpened = true;
         ShowButtonUI();
     }
 
     public void CloseDoorAnimation()
     {
         animator.SetBool("openAnim", false);
-        isOpened = false;
     }
 
     private void ShowButtonUI()

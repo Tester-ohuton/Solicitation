@@ -286,7 +286,6 @@ public class GameManager : MonoBehaviour
 
     public void OnApplicationQuit()
     {
-        SaveGame();
         Application.Quit();
     }
 
