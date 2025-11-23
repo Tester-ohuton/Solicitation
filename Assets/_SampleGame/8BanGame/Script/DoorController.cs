@@ -3,8 +3,6 @@ using UnityEngine.Events;
 
 public class DoorController : MonoBehaviour
 {
-    public int ID;
-
     private Animator animator;
 
     public static UnityEvent OnDoorOpenAnimation = new UnityEvent();
@@ -23,18 +21,14 @@ public class DoorController : MonoBehaviour
 
         OnDoorOpenAnimation.AddListener(() =>
         {
+            // ‰¹‚Ìˆ—‚ğÀ‘•‚·‚éê‡‚Í‚±‚±‚É’Ç‰Á
+            // TODO: Play door opening sound effect
+
+
             OpenDoorAnimation();
         });
 
         animator = GetComponentInParent<Animator>();
-    }
-
-    void Update()
-    {
-        if (Input.GetMouseButtonDown(0))
-        {
-            OnDoorOpenAnimation.Invoke();
-        }
     }
 
     public void OpenDoorAnimation()

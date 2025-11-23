@@ -12,6 +12,7 @@ public class PlayerInteractController : MonoBehaviour
     public float interactRange = 3f;
     public LayerMask interactableLayer;
     public KeyCode interactKey = KeyCode.E;
+    public KeyCode doorKey = KeyCode.Space;
     public string interactTag = "Cardboard";
     public string doorTag = "Door";
     public GameObject gaugeUI;
@@ -73,7 +74,7 @@ public class PlayerInteractController : MonoBehaviour
             {
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
-                    HandleSimpleInteraction();
+                    DoorController.OnDoorOpenAnimation.Invoke();
                 }
 
                 if(Input.GetKeyDown(KeyCode.C))
@@ -111,17 +112,6 @@ public class PlayerInteractController : MonoBehaviour
         }
 
         isInteracting = true;
-    }
-
-    /// <summary>
-    /// Handle simple interactions like doors
-    /// </summary>
-    void HandleSimpleInteraction()
-    {
-        DoorController.OnDoorOpenAnimation.Invoke();
-
-        // Play door opening sound
-        SoundManager.Instance.PlaySE3D(SESoundData.SE.DoorOpen, transform.position);
     }
 
     /// <summary>

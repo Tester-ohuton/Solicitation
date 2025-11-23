@@ -51,7 +51,8 @@ public class GameManager : MonoBehaviour
 
     private GameObject player;
 
-    private GameObject game;
+    [Header("GameDirectorオブジェクトをアタッチしてください")]
+    [SerializeField] private GameObject game;
     private GameDirector gameDirector;
 
     private string saveFilePath;
@@ -91,8 +92,6 @@ public class GameManager : MonoBehaviour
 
         cardboardStates = new bool[14]; // フラグ配列の初期化（14つのCardboard用）
         SetSaveFilePath();
-
-        game = GameObject.Find("GameDirector");
 
         if (game != null)
         {
@@ -156,7 +155,7 @@ public class GameManager : MonoBehaviour
 
     public void ResetPlayerPos()
     {
-        player.transform.position = playerPosition[0].transform.position;
+        player.transform.position = playerPosition[currentDay].transform.position;
     }
 
     public int Day()

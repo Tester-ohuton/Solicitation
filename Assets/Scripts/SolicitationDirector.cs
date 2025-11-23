@@ -72,11 +72,18 @@ public class SolicitationDirector : MonoBehaviour
         if (optionPanel.activeInHierarchy)
         {
             playerController.isPlayerMoving = false;
+
+            // Debug.Log("PauseWindowが表示されている");
+            Time.timeScale = 0;
+            // カーソルを表示
+            Cursor.visible = true;
         }
         else
         {
-            playerController.isPlayerMoving = true;
-            Debug.LogWarning("PauseWindowは表示されていない");
+            Time.timeScale = 1;
+            // カーソルを非表示
+            Cursor.visible = false;
+            //Debug.LogWarning("PauseWindowは表示されていない");
         }
     }
 }

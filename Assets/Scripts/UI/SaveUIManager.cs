@@ -70,7 +70,7 @@ public class SaveUIManager : MonoBehaviour
 
     void ButtonPress(int point)
     {
-        timeText[point].text = GameManager.instance.GetFormattedGameTime();
+        timeText[point].text = GameManager.instance.GetFormattedGameTime() + $"セーブデータ{point}";
     }
 
     void CheckForSaveData()
