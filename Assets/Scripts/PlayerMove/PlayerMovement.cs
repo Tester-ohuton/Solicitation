@@ -53,18 +53,11 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (!PlayerController.instance.isPlayerMoving)
-        {
-            return;
-        }
-
         PlayerMove();
 
         Run();
 
         PlayerRotate();
-
-        //Jump();
     }
 
     public void PlayerRotate()
@@ -105,19 +98,12 @@ public class PlayerMovement : MonoBehaviour
     }
 
     private void LateUpdate()
-    {
-        if (!PlayerController.instance.isPlayerMoving)
-        {
-            return;
-        }
-
-        
+    {   
         cam.transform.position = viewPoint.position;
         cam.transform.rotation = viewPoint.rotation;
 
         cinemachineVirtualCamera.transform.position = viewPoint.position;
-        cinemachineVirtualCamera.transform.rotation = viewPoint.rotation;
-        
+        cinemachineVirtualCamera.transform.rotation = viewPoint.rotation;   
     }
 
     public void PlayerMove()

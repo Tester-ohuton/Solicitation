@@ -41,22 +41,10 @@ public class EntranceUIManager : MonoBehaviour
     [Space]
     [SerializeField] private TriggerFlag triggerFlag;
 
-    private GameObject player;
-    private PlayerController playerController;
+    public PlayerController playerController;
 
     void Start()
     {
-        player = GameObject.Find("ChaM01_Player");
-
-        if (player != null)
-        {
-            playerController = player.GetComponent<PlayerController>();
-        }
-        else
-        {
-            Debug.Log("プレイヤーが見つかりません");
-        }
-
         // Initialize the UI visibility based on Inspector settings
         UpdateButtonVisibility();
 
@@ -78,7 +66,6 @@ public class EntranceUIManager : MonoBehaviour
         cancelButton.onClick.AddListener(() =>
         {
             HideUI();
-            DisplayUI();
         });
 
         rockButton.onClick.AddListener(() =>
@@ -135,13 +122,11 @@ public class EntranceUIManager : MonoBehaviour
         // Camera switching logic would go here
         mainCamera.gameObject.SetActive(false);
         peekingCamera.gameObject.SetActive(true);
-        playerController.isPlayerMoving = false;
 
         yield return new WaitForSeconds(2f);
 
         mainCamera.gameObject.SetActive(true);
         peekingCamera.gameObject.SetActive(false);
-        playerController.isPlayerMoving = true;
     }
 
     // Method to be called by the Open Door button
@@ -159,8 +144,6 @@ public class EntranceUIManager : MonoBehaviour
         {
             Debug.LogWarning("Animator が見つかりませんでした。");
         }
-
-        DisplayUI();
     }
 
     // Method to be called by the Cancel button
@@ -169,18 +152,8 @@ public class EntranceUIManager : MonoBehaviour
         entranceUIPanel.SetActive(false);
     }
 
-    public void DisplayUI()
-    {
-        playerController.isPlayerMoving = true;
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
-
     public void ActiveUI()
     {
         entranceUIPanel.SetActive(true);
-        playerController.isPlayerMoving = false;
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
     }
 }

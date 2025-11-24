@@ -10,8 +10,24 @@ public class MousePointerpos : MonoBehaviour, IPointerEnterHandler, IPointerExit
 
     private void Start()
     {
-        //Cursor.SetCursor(cursorTexture2, Vector2.zero, CursorMode.Auto);
+        Cursor.SetCursor(cursorTexture2, Vector2.zero, CursorMode.Auto);
+
+        // カーソルを常に表示する
+        Cursor.visible = true;
+
+        // カーソルのロックを解除する
+        Cursor.lockState = CursorLockMode.None;
     }
+
+    void Update()
+    {
+        if (!Cursor.visible || Cursor.lockState != CursorLockMode.None)
+        {
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+        }
+    }
+
 
     public void OnPointerEnter(PointerEventData eventData)
     {

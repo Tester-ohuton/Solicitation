@@ -28,8 +28,6 @@ public class PlayerController : MonoBehaviour
     [Header("Camera")]
     public Transform cameraTransform; //カメラのTransform
 
-    public bool isPlayerMoving;
-
     private Rigidbody rb;
     private Vector3 velocity;
     private CapsuleCollider capsuleCollider;
@@ -49,11 +47,6 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if(!isPlayerMoving)
-        {
-            return;
-        }
-
         GameManager.instance.UpdateGameTime(Time.deltaTime);
 
         ActorMove();
@@ -67,7 +60,6 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     void ActorMove()
     {
-
         //プレイヤー移動
         float moveHorizontal = Input.GetAxisRaw("Horizontal") * moveSpeed * Time.deltaTime;
         float moveVertical = Input.GetAxisRaw("Vertical") * moveSpeed * Time.deltaTime;

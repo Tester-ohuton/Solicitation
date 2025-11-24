@@ -44,9 +44,6 @@ public class UIManager : MonoBehaviour
 
         if (eventButtonPanel != null && eventButtonPanel.activeInHierarchy)
         {
-            if (PlayerController.instance != null)
-                PlayerController.instance.isPlayerMoving = false;
-
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
 
@@ -54,9 +51,6 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            if (PlayerController.instance != null)
-                PlayerController.instance.isPlayerMoving = true;
-
             Cursor.lockState = CursorLockMode.Locked;
             Cursor.visible = false;
         }
@@ -142,9 +136,6 @@ public class UIManager : MonoBehaviour
 
         if (eventButtonPanel != null && eventButtonPanel.activeInHierarchy)
         {
-            if (PlayerController.instance != null)
-                PlayerController.instance.isPlayerMoving = false;
-
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
         }
@@ -154,9 +145,6 @@ public class UIManager : MonoBehaviour
     {
         if (eventButtonPanel != null)
             eventButtonPanel.SetActive(false);
-
-        if (PlayerController.instance != null)
-            PlayerController.instance.isPlayerMoving = true;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;

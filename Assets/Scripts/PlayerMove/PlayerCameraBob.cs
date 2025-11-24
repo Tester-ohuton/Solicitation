@@ -8,7 +8,6 @@ public class PlayerCameraBob : MonoBehaviour
 
     private Vector3 cameraOriginalPosition; // カメラの初期位置
     private float timer = 0f; // 時間計測用タイマー
-    private bool isMoving = false; // プレイヤーが移動しているかどうかのフラグ
 
     void Start()
     {
@@ -21,11 +20,6 @@ public class PlayerCameraBob : MonoBehaviour
         {
             return;
         });
-
-        if (!PlayerController.instance.isPlayerMoving)
-        {
-            return;
-        }
 
         // プレイヤーが移動中かどうかを判定
         // プレイヤーが移動中であれば、カメラを揺らす

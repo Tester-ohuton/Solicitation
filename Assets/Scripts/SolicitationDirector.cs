@@ -22,14 +22,10 @@ public class SolicitationDirector : MonoBehaviour
     [SerializeField] GameObject optionPanel;
 
     public KeyCode pressKey_1 = KeyCode.Tab;
-
-    private GameObject player;
-    private PlayerController playerController;
-
+    public PlayerController playerController;
+    
     private void Start()
     {
-        Time.timeScale = 1;
-
         StartGame();
     }
 
@@ -43,17 +39,6 @@ public class SolicitationDirector : MonoBehaviour
     /// </summary>
     public void StartGame()
     {
-        player = GameObject.Find("ChaM01_Player");
-
-        if (player != null)
-        {
-            playerController = player.GetComponent<PlayerController>();
-        }
-        else
-        {
-            Debug.Log("プレイヤーコントローラーが見つかりません");
-        }
-
         GameManager.instance.isGameOver = false;
         GameManager.instance.isCleared = false;
     }
@@ -71,8 +56,6 @@ public class SolicitationDirector : MonoBehaviour
 
         if (optionPanel.activeInHierarchy)
         {
-            playerController.isPlayerMoving = false;
-
             // Debug.Log("PauseWindowが表示されている");
             Time.timeScale = 0;
             // カーソルを表示

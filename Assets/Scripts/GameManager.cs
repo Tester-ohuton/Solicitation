@@ -23,7 +23,6 @@ public class GameManager : MonoBehaviour
     [TextArea]
     public string text;
 
-    public GameObject initialPlayerPosition;
     public GameObject[] playerPosition;
     public bool[] cardboardStates;
     public float volume;
@@ -49,12 +48,12 @@ public class GameManager : MonoBehaviour
         { 7, 2 }
     };
 
-    private GameObject player;
+    public GameObject player;
 
     [Header("GameDirectorオブジェクトをアタッチしてください")]
     [SerializeField] private GameObject game;
-    private GameDirector gameDirector;
 
+    private GameDirector gameDirector;
     private string saveFilePath;
 
     /// <summary>
@@ -83,13 +82,6 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        player = GameObject.Find("ChaM01_Player");
-
-        if (player == null)
-        {
-            Debug.LogWarning("プレイヤーが見つかりません");
-        }
-
         cardboardStates = new bool[14]; // フラグ配列の初期化（14つのCardboard用）
         SetSaveFilePath();
 
@@ -100,7 +92,7 @@ public class GameManager : MonoBehaviour
         }
 
         StartNewGame();
-
+        
     }
 
     private void SetSaveFilePath()
@@ -119,7 +111,7 @@ public class GameManager : MonoBehaviour
 
     public void StartNewGame()
     {
-        initialPlayerPosition.transform.position = playerPosition[0].transform.position;
+        player.transform.position = playerPosition[currentDay].transform.position;
         cardboardStates = new bool[cardboardStates.Length]; // フラグ配列の初期化
         volume = 1.0f;
         brightness = 1.0f;
@@ -151,11 +143,6 @@ public class GameManager : MonoBehaviour
     {
         string thisSceneName = SceneManager.GetActiveScene().name;
         SceneManager.LoadScene(thisSceneName);
-    }
-
-    public void ResetPlayerPos()
-    {
-        player.transform.position = playerPosition[currentDay].transform.position;
     }
 
     public int Day()

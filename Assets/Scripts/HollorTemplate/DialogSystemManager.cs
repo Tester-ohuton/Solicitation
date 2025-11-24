@@ -16,8 +16,6 @@ public class DialogSystemManager : MonoBehaviour
 
     void Start()
     {
-        PlayerController.instance.isPlayerMoving = false;
-
         // 修正箇所：Queue を正しく初期化
         dialogQueue = new Queue<DialogSentence>();
         currentSentenceIndex = 0;
@@ -28,12 +26,6 @@ public class DialogSystemManager : MonoBehaviour
         if (dialogQueue.Count > 0 && (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.Space)))
         {
             ProceedToNextSentence();
-        }
-
-        // Escキーで会話を終了
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            EndDialog();
         }
     }
 
@@ -66,7 +58,6 @@ public class DialogSystemManager : MonoBehaviour
     {
         if (dialogQueue.Count == 0)
         {
-            EndDialog();
             return;
         }
 
@@ -89,7 +80,7 @@ public class DialogSystemManager : MonoBehaviour
             }
             else
             {
-                EndDialog();
+                return;
             }
         }
     }
@@ -104,10 +95,5 @@ public class DialogSystemManager : MonoBehaviour
             nameText.text = character;
             dialogText.text = sentence;
         }
-    }
-
-    public void EndDialog()
-    {
-        PlayerController.instance.isPlayerMoving = true;
     }
 }
