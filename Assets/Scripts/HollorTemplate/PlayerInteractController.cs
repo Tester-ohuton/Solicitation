@@ -218,7 +218,12 @@ public class PlayerInteractController : MonoBehaviour
                     if (GameManager.instance.currentDay == 4)
                     {
                         GameDirector.instance.Date4Game(); // 4Day:cardboard
-                        gameOverEffect.EnemyActive(true);
+
+                        // UI
+                        PlayerPrefs.SetInt("SCORE", 4); // SCORE
+                        PlayerPrefs.SetInt("BUTTON", 4);
+                        PlayerPrefs.SetInt("CLEAR", 0);
+                        PlayerPrefs.Save();
                     }
 
                     if (GameManager.instance.currentDay == 5)
@@ -227,8 +232,8 @@ public class PlayerInteractController : MonoBehaviour
                         gameOverEffect.EnemyActive(false);
 
                         // UI
-                        PlayerPrefs.SetInt("SCORE", 4); // SCORE
-                        PlayerPrefs.SetInt("BUTTON", 4);
+                        PlayerPrefs.SetInt("SCORE", 5); // SCORE
+                        PlayerPrefs.SetInt("BUTTON", 5);
                         PlayerPrefs.SetInt("CLEAR", 0);
                         PlayerPrefs.Save();
                     }
@@ -238,8 +243,8 @@ public class PlayerInteractController : MonoBehaviour
                         GameDirector.instance.Date6Game(); // 6Day:cardboard
 
                         // UI
-                        PlayerPrefs.SetInt("SCORE", 5); // SCORE
-                        PlayerPrefs.SetInt("BUTTON", 5);
+                        PlayerPrefs.SetInt("SCORE", 6); // SCORE
+                        PlayerPrefs.SetInt("BUTTON", 6);
                         PlayerPrefs.SetInt("CLEAR", 0);
                         PlayerPrefs.Save();
                     }
@@ -249,8 +254,8 @@ public class PlayerInteractController : MonoBehaviour
                         GameDirector.instance.Date7Game(); // 6Day:cardboard
 
                         // UI
-                        PlayerPrefs.SetInt("SCORE", 6); // SCORE
-                        PlayerPrefs.SetInt("BUTTON", 6);
+                        PlayerPrefs.SetInt("SCORE", 7); // SCORE
+                        PlayerPrefs.SetInt("BUTTON", 7);
                         PlayerPrefs.SetInt("CLEAR", 1);
                         PlayerPrefs.Save();
                     }
@@ -258,7 +263,6 @@ public class PlayerInteractController : MonoBehaviour
                     if (GameManager.instance.currentDay == 8)
                     {
                         GameManager.instance.SetIsGameOver(true);
-                        GameManager.instance.currentDay = 1; // Reset to Day 1 or handle end game
                         yield break;
                     }
 

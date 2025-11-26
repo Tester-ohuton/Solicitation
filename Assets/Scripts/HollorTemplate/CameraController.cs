@@ -9,8 +9,6 @@ public class CameraController : MonoBehaviour
     public Transform player;           // プレイヤーのTransform
     public Vector3 offset;             // カメラとプレイヤーのオフセット
 
-    public float sensitivity = 2.0f;
-
     private float verticalRotation = 0.0f;
 
     void Start()
@@ -25,14 +23,9 @@ public class CameraController : MonoBehaviour
     void Update()
     {
         if (player == null) return;
-        
-        if(GameManager.instance.isCursor)
-        {
-            return;
-        }
 
         // マウスによるカメラの上下操作
-        float rotateVertical = -Input.GetAxis("Mouse Y") * sensitivity;
+        float rotateVertical = -Input.GetAxis("Mouse Y") * GameManager.instance.mouseSensitivity;
         verticalRotation += rotateVertical;
         verticalRotation = Mathf.Clamp(verticalRotation, -90.0f, 90.0f);
 

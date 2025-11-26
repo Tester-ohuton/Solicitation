@@ -77,6 +77,7 @@ public class PlayerController : MonoBehaviour
         //マウス視点操作
         float rotateHorizontal = Input.GetAxis("Mouse X") * mouse.GetMouseSensitivity();
 
+        //プレイヤーの左右回転
         transform.Rotate(0, rotateHorizontal, 0);
     }
 

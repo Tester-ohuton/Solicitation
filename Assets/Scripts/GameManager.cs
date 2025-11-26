@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour
     public int currentDay = 1;
     public bool isCleared = false;
     public bool isGameOver = false;
-    public bool isCursor = true;
     public int totalDays = 7;
     public List<int> completedDays = new List<int>() { 1, 2, 3, 4, 5, 6, 7};
 
@@ -121,7 +120,6 @@ public class GameManager : MonoBehaviour
         currentDay = 1;
         isCleared = false;
         isGameOver = false;
-        isCursor = true;
 
         LoadGame();
     }
