@@ -17,5 +17,6 @@ public class ClearEffect : MonoBehaviour
     {
         yield return new WaitForSeconds(2f); // Wait for 2 seconds
         gameClearPanel.SetActive(true);
+        GameManager.instance.isCleared = true;
     }
 }

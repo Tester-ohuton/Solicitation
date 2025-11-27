@@ -7,14 +7,12 @@ using UnityEngine.UI;
 public class Brightness : MonoBehaviour
 {
     [SerializeField] private Slider brightnessSlider;
-    private Image image;
+    [SerializeField] private Image illuminanceImage;
 
     void Start()
     {
         brightnessSlider = GetComponent<Slider>();
         brightnessSlider.onValueChanged.AddListener(SetBrightness);
-
-        image = GetComponent<Image>();
 
         // Initialize the brightness to the current slider value
         SetBrightness(brightnessSlider.value);
@@ -22,11 +20,11 @@ public class Brightness : MonoBehaviour
 
     void SetBrightness(float value)
     {
-        if (image != null)
+        if (illuminanceImage != null)
         {
-            Color color = image.color;
+            Color color = illuminanceImage.color;
             color.a = value; // Assuming brightness is controlled by alpha channel
-            image.color = color;
+            illuminanceImage.color = color;
         }
     }
 }

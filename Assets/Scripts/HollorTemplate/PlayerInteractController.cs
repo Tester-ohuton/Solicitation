@@ -37,7 +37,7 @@ public class PlayerInteractController : MonoBehaviour
         }
         else
         {
-            Debug.LogError("GameOverEffect component not found in the scene.");
+            Debug.Log("GameOverEffect component not found in the scene.");
         }
     }
 
@@ -72,6 +72,8 @@ public class PlayerInteractController : MonoBehaviour
             }
             else if (hit.collider.CompareTag(doorTag))
             {
+                HandleInteraction(hit);
+
                 if (Input.GetKeyDown(KeyCode.Space))
                 {
                     DoorController.OnDoorOpenAnimation.Invoke();
@@ -139,9 +141,6 @@ public class PlayerInteractController : MonoBehaviour
 
                     Outline outline = obj.GetComponent<Outline>();
                     outline.enabled = false;
-
-                    ItemGenerator itemGenerator = obj.GetComponent<ItemGenerator>();
-                    itemGenerator.GenerateItem();
 
                     // 段ボール撤去直後
                     if (dialogueManager != null)

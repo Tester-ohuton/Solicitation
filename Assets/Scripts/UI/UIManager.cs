@@ -51,8 +51,7 @@ public class UIManager : MonoBehaviour
         }
         else
         {
-            Cursor.lockState = CursorLockMode.Locked;
-            Cursor.visible = false;
+            ;
         }
     }
 
@@ -145,8 +144,5 @@ public class UIManager : MonoBehaviour
     {
         if (eventButtonPanel != null)
             eventButtonPanel.SetActive(false);
-
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
     }
 }

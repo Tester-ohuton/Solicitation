@@ -23,7 +23,7 @@ public class DoorController : MonoBehaviour
         {
             // ‰¹‚Ìˆ—‚ğÀ‘•‚·‚éê‡‚Í‚±‚±‚É’Ç‰Á
             // TODO: Play door opening sound effect
-
+            
 
             OpenDoorAnimation();
         });

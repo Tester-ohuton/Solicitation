@@ -21,8 +21,10 @@ public class SolicitationDirector : MonoBehaviour
     [Header("OptionPanel")]
     [SerializeField] GameObject optionPanel;
 
-    public KeyCode pressKey_1 = KeyCode.Tab;
-    public PlayerController playerController;
+    [Header("Playerがいる場合カメラはオフ")]
+    [SerializeField] GameObject cameraObject;
+
+    public KeyCode pressKey_1 = KeyCode.Escape;
     
     private void Start()
     {
@@ -52,21 +54,17 @@ public class SolicitationDirector : MonoBehaviour
         if (Input.GetKeyDown(pressKey_1))
         {
             optionPanel.SetActive(!optionPanel.activeSelf);
-        }
 
-        if (optionPanel.activeInHierarchy)
-        {
-            // Debug.Log("PauseWindowが表示されている");
-            Time.timeScale = 0;
-            // カーソルを表示
-            Cursor.visible = true;
-        }
-        else
-        {
-            Time.timeScale = 1;
-            // カーソルを非表示
-            Cursor.visible = false;
-            //Debug.LogWarning("PauseWindowは表示されていない");
+            if(optionPanel)
+            {
+                Time.timeScale = 0f;
+                cameraObject.SetActive(true);
+            }
+            else
+            {
+                Time.timeScale = 1f;
+                cameraObject.SetActive(false);
+            }
         }
     }
 }

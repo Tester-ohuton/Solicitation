@@ -1,6 +1,5 @@
 using UnityEngine;
 using System.Collections;
-using UnityEngine.SceneManagement;
 
 public class GameOverEffect : MonoBehaviour
 {
@@ -8,7 +7,6 @@ public class GameOverEffect : MonoBehaviour
     public Transform entryPoint;  //出現場所
     public Transform playerPosition;  //プレイヤー座標
     public GameObject gameOverPanel;    //ゲームオーバーUI
-    public string sceneName = "TitleScene";
 
     public float moveSpeed = 2.0f;
 
@@ -57,11 +55,5 @@ public class GameOverEffect : MonoBehaviour
 
         //ゲームオーバーUIの表示
         gameOverPanel.SetActive(true);
-
-        //待機
-        yield return new WaitForSeconds(0.1f);
-
-        //シーンチェンジ
-        SceneManager.LoadScene(sceneName);
     }
 }

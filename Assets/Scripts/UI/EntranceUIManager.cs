@@ -38,11 +38,6 @@ public class EntranceUIManager : MonoBehaviour
     [Space]
     [SerializeField] private DoorController doorController;
 
-    [Space]
-    [SerializeField] private TriggerFlag triggerFlag;
-
-    public PlayerController playerController;
-
     void Start()
     {
         // Initialize the UI visibility based on Inspector settings
