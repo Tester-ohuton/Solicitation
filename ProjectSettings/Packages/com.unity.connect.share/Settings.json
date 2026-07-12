@@ -1,0 +1,26 @@
+{
+    "m_Dictionary": {
+        "m_DictionaryValues": [
+            {
+                "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                "key": "firstTime",
+                "value": "{\"m_Value\":false}"
+            },
+            {
+                "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                "key": "autoPublish",
+                "value": "{\"m_Value\":true}"
+            },
+            {
+                "type": "System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                "key": "createDefaultBuildsFolder",
+                "value": "{\"m_Value\":true}"
+            },
+            {
+                "type": "System.String, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089",
+                "key": "buildOutputDirList",
+                "value": "{\"m_Value\":\"C:/Users/isimasa/Desktop/WebglTakarabako;C:/Users/isimasa/Desktop/Proto3;C:/Users/isimasa/Desktop/Proto2Game;C:/Users/isimasa/Desktop/Prototype1Game;C:/Users/isimasa/Downloads/Solcitation-main/Solcitation-main/WebGLBuilds;C:/Users/isimasa/Downloads/Solcitation-main/IshigakiGames;;;;\"}"
+            }
+        ]
+    }
+}
